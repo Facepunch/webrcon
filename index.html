@@ -13,7 +13,7 @@
   </head>
   <body ng-cloak layout="row" ng-controller="RconController">
   
-	<div ng-include="'/html/connect.html'" ng-show="!Connected" flex layout="row">
+	<div ng-include="'html/connect.html'" ng-show="!Connected" flex layout="row">
 	</div>
   
   
@@ -34,7 +34,7 @@
 		<md-toolbar layout="row">
 			<div class="md-toolbar-tools">
 				<md-button class="md-icon-button  hide-gt-sm" aria-label="Settings" ng-click="OpenLeftMenu()">
-				  <md-icon md-menu-origin md-svg-icon="/image/menu.svg"></md-icon>
+				  <md-icon md-menu-origin md-svg-icon="image/menu.svg"></md-icon>
 				</md-button>
 				<div layout-row flex><h3 class="md-toolbar-item md-breadcrumb md-headline">Connected Server Name</h3></div>
 			</div>
