@@ -1,0 +1,18 @@
+# webrcon
+
+Game server Rcon, using websockets.
+
+This website is accessible [here](http://facepunch.github.io/webrcon/).
+
+##Source Code
+
+The source code for the site is on the [gh-pages branch](https://github.com/Facepunch/webrcon/tree/gh-pages). 
+
+The code is purplsely made to work purely in the browser - with no server backend, and on as many devices as possible. It is mean to serve as an example of how to communicate with websocket rcon, but should be fully functional.
+
+##Rust
+
+If you're running a Rust server you need to add "+rcon.web 1" to the command line to enable web based Rcon. If you don't define a port it will use the default port, but you will also need to set a password, which you can do with "+rcon.password password".
+
+This will eventually be the default rcon mode. At that point you'll need to use another command to enable the old Rcon. Even more eventually, the old Rcon will be removed - so if you're a tool maker or otherwise, it would be advisable to have a way to talk to web rcon as soon as possible.
+
