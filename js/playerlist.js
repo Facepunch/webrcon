@@ -1,7 +1,7 @@
 
 app.controller( 'PlayerListController',  PlayerListController );
 
-function PlayerListController( $scope, rconService )
+function PlayerListController( $scope, rconService, $interval )
 {
 	$scope.Output = new Array();
 
@@ -14,4 +14,11 @@ function PlayerListController( $scope, rconService )
 	}
 
 	rconService.InstallService( $scope, $scope.Refresh )
+
+	var timer = $interval( function ()
+	{
+		//$scope.Refresh();
+	}.bind( this ), 1000 );
+
+	$scope.$on( '$destroy', function () { $interval.cancel( timer ) } )
 }

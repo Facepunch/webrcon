@@ -1,6 +1,6 @@
 
 
-var app = angular.module( 'RconApp', ['ngMaterial', 'ngRoute'] );
+var app = angular.module( 'RconApp', ['ngMaterial', 'ngRoute', 'nvd3'] );
 
 app.service( 'rconService', [RconService] );
 
@@ -29,8 +29,6 @@ function RconController( $scope, $rootScope, rconService, $mdSidenav, $timeout, 
 	{
 		return [value];
 	} );
-
-	console.log( $scope.pages );
 
 	$scope.OpenLeftMenu = function ()
 	{
@@ -88,8 +86,6 @@ function ConnectionController( $scope, rconService )
 
 	if ( $scope.PreviousConnects == null )
 		$scope.PreviousConnects = new Array();
-
-	console.log( $scope.PreviousConnects );
 
 	$scope.Connect = function ()
 	{

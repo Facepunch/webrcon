@@ -1,9 +1,7 @@
 <div ng-controller="PlayerListController" flex layout="column" id="PlayerListController">
-
 <md-content flex id="vertical-container">
 	<md-list>
-		<div ng-repeat="line in Players | filter : FilterText">
-			<md-list-item class="md-3-line" layout="row" style="min-height: auto;">
+			<md-list-item class="" ng-repeat="line in Players | filter : FilterText" href="#/player/{{line.SteamID}}/">
 				<div flex layout="row">
 					<div flex class="md-list-item-text">
 						<h3><a href="#/player/{{line.SteamID}}/">{{line.DisplayName}}</a></h3>
@@ -23,7 +21,7 @@
 				</div>
 				
 				<div flex="10"style="text-align: right">
-					XP: {{line.UnspentXp}}			
+					XP: <a href="#/player/{{line.SteamID}}/xp">{{line.UnspentXp}}</a>
 				</div>
 				
 				<div flex="20"style="text-align: right">
@@ -36,12 +34,8 @@
 					{{line.ConnectedSeconds | SecondsToDuration}}
 				</div>
 				
-				
+				<md-divider></md-divider>			
 			</md-list-item>
-		<md-divider></md-divider>
-		</div>
-		
-		
 	</md-list>
 </md-content>
 
