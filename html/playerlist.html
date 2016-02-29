@@ -1,5 +1,4 @@
-
-<div ng-controller="PlayersController" flex layout="column" id="PlayersController">
+<div ng-controller="PlayerListController" flex layout="column" id="PlayerListController">
 
 <md-content flex id="vertical-container">
 	<md-list>
@@ -7,7 +6,7 @@
 			<md-list-item class="md-3-line" layout="row" style="min-height: auto;">
 				<div flex layout="row">
 					<div flex class="md-list-item-text">
-						<h3>{{line.DisplayName}}</h3>
+						<h3><a href="/#/player/{{line.SteamID}}/">{{line.DisplayName}}</a></h3>
 					</div>
 				</div>
 

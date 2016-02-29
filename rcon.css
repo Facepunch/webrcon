@@ -45,3 +45,42 @@ H3
 {
 	color: #000;
 }
+
+a 
+{
+	color: #FF4081;
+	text-decoration: none;
+}
+
+.menu
+{
+	background-color: #1976D2;
+}
+
+.menu_button
+{
+	display: block;
+    padding: 0 16px 0 32px;
+    text-transform: none;
+    text-rendering: optimizeLegibility;
+    font-weight: 500;
+	border-radius: 0;
+    color: white;
+    cursor: pointer;
+    display: block;
+    align-items: inherit;
+    line-height: 40px;
+    margin: 0;
+    max-height: 40px;
+    overflow: hidden;
+    padding: 0px 16px;
+    text-align: left;
+    text-decoration: none;
+    white-space: normal;
+    width: 100%;
+}
+
+.menu_button.selected
+{
+	background: #90A4AE;
+}

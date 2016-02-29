@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" ng-app="RconApp">
   <head>
     <meta charset="utf-8">
@@ -16,12 +16,11 @@
 	<div ng-include="'html/connect.html'" ng-show="!Connected" flex layout="row">
 	</div>
   
-  
-  	<md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" ng-show="Connected">
+  	<md-sidenav md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-6dp menu" ng-show="Connected">
 	
 		<md-list>
-			<md-list-item ng-repeat="p in pages">
-				<md-button href="#/console/" flex ng-click="SwitchPage( p )" ng-class="{'selected' : CurrentPage.Name == p.Name }">
+			<md-list-item ng-repeat="p in pages | filter: { Nav: '' } ">
+				<md-button href="#{{p.originalPath}}" class="menu_button" ng-class="{'selected' : $route.current.Title == p.Title }">
 					{{p.Title}}
 				</md-button>
 			</md-list-item>
@@ -36,13 +35,12 @@
 				<md-button class="md-icon-button  hide-gt-sm" aria-label="Settings" ng-click="OpenLeftMenu()">
 				  <md-icon md-menu-origin md-svg-icon="image/menu.svg"></md-icon>
 				</md-button>
-				<div layout-row flex><h3 class="md-toolbar-item md-breadcrumb md-headline">Connected Server Name</h3></div>
+				<div layout-row flex><h3 class="md-toolbar-item md-breadcrumb md-headline">{{$route.current.Title}}</h3></div>
 			</div>
 		</md-toolbar>
 
-		
 		<div flex layout="column">
-			<md-content flex class="Content AppBackground" ng-include="p.Page" layout="column" ng-repeat="p in pages" ng-show="p == CurrentPage">
+			<md-content flex class="Content AppBackground" layout="column" ng-view>
 			</md-content>
 		</div>
 	</div>
@@ -64,7 +62,12 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.2/nv.d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.5/angular-nvd3.min.js"></script>
 	
-	<script src="rcon.js"></script>
+  	<script src="js/rconService.js"></script>
+	<script src="js/app.js"></script>
+  	<script src="js/console.js"></script>
+  	<script src="js/playerlist.js"></script>
+  	<script src="js/playerInfo.js"></script>
+  	<script src="js/playerXp.js"></script>
 	
   </body>
 </html>
