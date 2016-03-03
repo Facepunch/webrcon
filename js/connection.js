@@ -15,6 +15,9 @@ function ConnectionController( $scope, rconService, $routeParams, $timeout )
 
 	$scope.Connect = function ()
 	{
+		$scope.Address = $scope.Address.trim();
+		$scope.Password = $scope.Password.trim();
+
 		$scope.LastErrorMessage = null;
 		rconService.Connect( $scope.Address, $scope.Password );
 	}
