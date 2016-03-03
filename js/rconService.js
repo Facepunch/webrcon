@@ -12,6 +12,7 @@ function RconService()
 	s.Connect = function ( addr, pass )
 	{
 		s.Socket = new WebSocket( "ws://" + addr + "/" + pass );
+		s.Address = addr;
 
 		s.Socket.onmessage = function ( e )
 		{
@@ -49,8 +50,6 @@ function RconService()
 		s.Socket.onopen = s.OnOpen;
 		s.Socket.onclose = s.OnClose;
 		s.Socket.onerror = s.OnError;
-
-		console.log( s.Socket );
 	}
 
 	s.Command = function ( msg, identifier )

@@ -20,7 +20,7 @@
 	
 		<md-list>
 			<md-list-item ng-repeat="p in pages | filter: { Nav: '' } ">
-				<md-button href="#{{p.originalPath}}" class="menu_button" ng-class="{'selected' : $route.current.Title == p.Title }">
+				<md-button href="#{{Nav( p.originalPath )}}" class="menu_button" ng-class="{'selected' : $route.current.Title == p.Title }">
 					{{p.Title}}
 				</md-button>
 			</md-list-item>
@@ -68,6 +68,7 @@
 	<!-- Our stuff -->
   	<script src="js/rconService.js"></script>
 	<script src="js/app.js"></script>
+  	<script src="js/connection.js"></script>
   	<script src="js/console.js"></script>
   	<script src="js/playerlist.js"></script>
   	<script src="js/playerInfo.js"></script>

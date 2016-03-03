@@ -1,10 +1,10 @@
 <div ng-controller="PlayerListController" flex layout="column" id="PlayerListController">
 <md-content flex id="vertical-container">
 	<md-list>
-			<md-list-item class="" ng-repeat="line in Players | filter : FilterText" href="#/player/{{line.SteamID}}/">
+			<md-list-item class="" ng-repeat="line in Players | filter : FilterText" href="#/{{address}}/player/{{line.SteamID}}/">
 				<div flex layout="row">
 					<div flex class="md-list-item-text">
-						<h3><a href="#/player/{{line.SteamID}}/">{{line.DisplayName}}</a></h3>
+						<h3><a href="#/{{address}}/player/{{line.SteamID}}/">{{line.DisplayName}}</a></h3>
 					</div>
 				</div>
 
@@ -21,7 +21,7 @@
 				</div>
 				
 				<div flex="10"style="text-align: right">
-					XP: <a href="#/player/{{line.SteamID}}/xp">{{line.UnspentXp}}</a>
+					XP: <a href="#/{{address}}/player/{{line.SteamID}}/xp">{{line.UnspentXp}}</a>
 				</div>
 				
 				<div flex="20"style="text-align: right">
