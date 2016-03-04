@@ -31,14 +31,28 @@ H3
 	padding: 8px;
 }
 
-#ConsoleController .Output .Requested
+#ConsoleController .Output div 
 {
-	color: #2196F3;
+	padding: 2px 4px;
+	color: #888;
 }
 
-#ConsoleController .Output .Chat
+#ConsoleController .Output .Command
 {
-	color: #4CAF50;
+	color: #009688;
+    background-color: rgba(137, 255, 0, 0.44);
+}
+
+#ConsoleController .Output .Warning
+{
+	color: #c79621;
+	background-color: rgba(255, 128, 0, 0.1);
+}
+
+#ConsoleController .Output .Assert, #ConsoleController .Output .Error
+{
+	color: #b42626;
+	background-color: rgba(255,0,0,.1);
 }
 
 #ConsoleController .Input input

@@ -5,10 +5,6 @@ function RconService()
 
 	s.Callbacks = {};
 
-	// A list of untargetted ouput from the server
-	// ie - the console history
-	s.Output = new Array();
-
 	s.Connect = function ( addr, pass )
 	{
 		s.Socket = new WebSocket( "ws://" + addr + "/" + pass );
@@ -22,7 +18,7 @@ function RconService()
 			// This is a targetted message, it has an identifier
 			// So feed it back to the right callback.
 			//
-			if ( data.Identifier != 0 )
+			if ( data.Identifier > 1000 )
 			{
 				var cb = s.Callbacks[data.Identifier];
 				if ( cb != null )
@@ -42,7 +38,6 @@ function RconService()
 			//
 			if ( s.OnMessage != null )
 			{
-				s.Output.push( data );
 				s.OnMessage( data );
 			}
 		};

@@ -1,28 +1,52 @@
 
-app.controller( 'ConsoleController', ['$scope', 'rconService', ConsoleController] );
+app.controller( 'ConsoleController', ConsoleController );
 
-function ConsoleController( $scope, rconService )
+function ConsoleController( $scope, rconService, $timeout )
 {
-	$scope.Output = rconService.Output;
+	$scope.Output = new Array();
 
 	$scope.SubmitCommand = function ()
 	{
-		rconService.Command( $scope.Command, 0 );
+		$scope.OnMessage( { Message: $scope.Command, Type: 'Command' } )
+
+		rconService.Command( $scope.Command, 1 );
 		$scope.Command = "";
 	}
 
-	$scope.$on( "OnMessage", function ( event, msg )
+	$scope.$on( "OnMessage", function ( event, msg ) { $scope.OnMessage( msg ); } );
+
+	$scope.OnMessage = function( msg )
 	{
-		if ( msg.Message.startsWith( "[CHAT] " ) )
-			msg.Class = "Chat";
+		// Ignore rcon entries
+		if ( msg.Message.startsWith( "[rcon] " ) ) return;
 
-		if ( msg.Identifier == 1 )
-			msg.Class = "Requested";
+		msg.Class = msg.Type;
+		$scope.Output.push( msg );
 
-		if ( msg.Identifier > 1 )
-			return;
+		$timeout( $scope.ScrollToBottom, 50 );
+	}
 
+	$scope.ScrollToBottom = function()
+	{
+		// TODO - don't scroll if we're not at the bottom !
 		$( "#ConsoleController .Output" ).scrollTop( $( "#ConsoleController .Output" )[0].scrollHeight );
+	}
 
-	} );
+	//
+	// Calls console.tail - which returns the last 256 entries from the console.
+	// This is then added to the console
+	//
+	$scope.GetHistory = function ()
+	{
+		console.log( "GetHistory" );
+
+		rconService.Request( "console.tail 256", $scope, function ( msg )
+		{
+			var messages = JSON.parse( msg.Message );
+
+			messages.forEach( function ( x ) { $scope.OnMessage( x ); } );
+		} );
+	}
+
+	rconService.InstallService( $scope, $scope.GetHistory )
 }
