@@ -8,7 +8,7 @@ This website is accessible [here](http://facepunch.github.io/webrcon/).
 
 The source code for the site is on the [gh-pages branch](https://github.com/Facepunch/webrcon/tree/gh-pages). 
 
-The code is purplsely made to work purely in the browser - with no server backend, and on as many devices as possible. It is mean to serve as an example of how to communicate with websocket rcon, but should be fully functional.
+The code is purposely made to work purely in the browser - with no server backend, and on as many devices as possible. It is meant to serve as an example of how to communicate with websocket rcon, but should be fully functional.
 
 ##Features
 
