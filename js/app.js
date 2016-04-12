@@ -1,16 +1,11 @@
 
 
-var app = angular.module( 'RconApp', ['ngMaterial', 'ngRoute', 'nvd3'] );
+var app = angular.module( 'RconApp', ['ngRoute', 'nvd3'] );
 
 app.service( 'rconService', [RconService] );
 
-app.config( function ( $mdThemingProvider, $routeProvider )
+app.config( function ( $routeProvider )
 {
-	$mdThemingProvider.theme( 'default' ).primaryPalette( 'blue',
-	{
-		'default': '700'
-	}).accentPalette( 'blue' );
-
 	$routeProvider.when( "/home", { Title: "Home" } )
 	$routeProvider.when( "/:address/console", { Title: "Console", templateUrl: "html/console.html", Nav: true } )
 	$routeProvider.when( "/:address/playerlist", { Title: "Player List", templateUrl: "html/playerlist.html", Nav: true } )
@@ -22,7 +17,7 @@ app.config( function ( $mdThemingProvider, $routeProvider )
 
 app.controller( 'RconController', RconController );
 
-function RconController( $scope, $rootScope, rconService, $mdSidenav, $timeout, $mdDialog, $route )
+function RconController( $scope, $rootScope, rconService, $timeout, $route )
 {
 	$scope.$route = $route;
 	
@@ -97,6 +92,8 @@ function SecondsToDuration()
 		if ( input > 60 ) out += minutes + "m ";
 
 		var seconds = input % 60;
+
+		if ( input < 3600 )
 		out += seconds + "s";
 
 		return out;

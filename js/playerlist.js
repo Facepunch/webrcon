@@ -4,6 +4,7 @@ app.controller( 'PlayerListController',  PlayerListController );
 function PlayerListController( $scope, rconService, $interval )
 {
 	$scope.Output = new Array();
+	$scope.OrderBy = '-ConnectedSeconds';
 
 	$scope.Refresh = function ()
 	{
@@ -11,6 +12,24 @@ function PlayerListController( $scope, rconService, $interval )
 		{
 			$scope.Players = JSON.parse( msg.Message );
 		});
+	}
+
+	$scope.Order = function( o )
+	{
+		if ( $scope.OrderBy == o )
+		{
+			o = '-' + o;
+		}
+
+		$scope.OrderBy = o;
+	}
+
+	$scope.SortClass = function( o )
+	{
+		if ( $scope.OrderBy == o ) return "active";
+		if ( $scope.OrderBy == "-" + o ) return "active descending";
+
+		return null;
 	}
 
 	rconService.InstallService( $scope, $scope.Refresh )

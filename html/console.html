@@ -1,21 +1,11 @@
-<div ng-controller="ConsoleController" flex layout="column" id="ConsoleController">
+<div ng-controller="ConsoleController" id="ConsoleController">
 
-    <md-content flex id="vertical-container" class="Output"><div ng-repeat="line in Output" ng-class="line.Class">{{line.Message}}</div></md-content>
+    <div id="vertical-container" style="height: 600px" class="Output scrollable"><div ng-repeat="line in Output" ng-class="line.Class">{{line.Message}}</div></div>
 
 	<form ng-submit="SubmitCommand()" class="md-inline-form">
-		<md-toolbar class="Input">
-		  <div class="md-toolbar-tools">
-	  
-			<span flex>
-				<input ng-model="Command" style="width: 100%">
-			</span>
-		
-			<md-button class="md-icon-button" aria-label="Settings" ng-click="SubmitCommand()">
-				<md-icon md-menu-origin md-svg-icon="image/arrow-right-bold-hexagon-outline.svg"></md-icon>
-			</md-button>
-
-		  </div>
-		</md-toolbar>
+			<div>
+				<input class="form-control" ng-model="Command" style="width: 100%">
+			</div>
 	</form>
 
 </div>

@@ -1,56 +1,57 @@
-<md-content ng-controller="ConnectionController" layout="column" layout-align="center center" flex>
+<div ng-controller="ConnectionController" class="row">
 
-<md-card class="md-block">
+	<div class="col-md-offset-4 col-md-6 panel" style="margin-top: 128px">
 
-	<md-toolbar class="demo-toolbar md-primary">
-		<div class="md-toolbar-tools">
-			<h3 class="ng-binding">Connect</h3>
+		<h2>Connect</h2>
+
+			<div class="alert alert-danger" ng-show="LastErrorMessage != null">{{LastErrorMessage}}</div>
+
+			<p>Enter the address (including rcon port) and the rcon password below to connect.</p>
+
+			<form ng-submit="Connect()">
+				<div class="md-inline-form">
+
+
+					<div class="md-block" flex-gt-xs>
+						<label>Address</label>
+						<input required minlength=5 ng-model="Address" name="Address" class="form-control">
+					</div>
+
+					<div class="md-block" flex-gt-xs>
+						<label>Password</label>
+						<input required minlength=2 type="password" ng-model="Password" name="Password" class="form-control">
+					</div>
+
+					<div class="right">
+						<input type="checkbox" ng-model="SaveConnection">
+						Save Connection
+					</div>
+
+					<br />		<br />
+
+					<div class="center">
+						<button class="btn btn-primary" ng-click="Connect()">Connect</button>
+					</div>
+
+					<br />
+
+				</div>
+
+			</form>
 		</div>
-	</md-toolbar>
 
-	<div layout-padding layout-gt-xs="column">
-	
-		<div layout-padding>Enter the address (including rcon port) and the rcon password below to connect.</div>
+	<div class="col-md-offset-4 col-md-6 panel" style="margin-top: 64px">
 
-		<div ng-repeat="c in PreviousConnects">
-			<md-button ng-click="ConnectTo( c )">{{c.Address}}</md-button>
+		<div ng-show="PreviousConnects.length > 0">
+			<h2>Saved Connections</h2>
+			<ul ng-repeat="c in PreviousConnects">
+				<li><a ng-click="ConnectTo( c )" href="#">{{c.Address}}</a></li>
+			</ul>
 		</div>
-		
-		<div>{{LastErrorMessage}}</div>
-		
-		<form ng-submit="Connect()">
-		<div class="md-inline-form">
-		
 
-			<md-input-container class="md-block" flex-gt-xs>
-				<label>Address</label>
-				<input required minlength=5 ng-model="Address" name="Address">
-			</md-input-container>
-		  
-			<md-input-container class="md-block" flex-gt-xs>
-			<label>Password</label>
-			<input required minlength=2 type="password" ng-model="Password" name="Password">
-		  </md-input-container>
-		  
-			<section layout="row" layout-align="end end" layout-wrap>
-				<md-checkbox md-no-ink aria-label="Save Connection" ng-model="SaveConnection" class="md-primary">
-            Save Connection
-          </section>
-		
-<br/>		<br/>		
-		  
-		<section layout="row" layout-align="end end" layout-wrap>
-		  <md-button class="md-raised md-primary" ng-click="Connect()">Connect</md-button>
-		</section>
-		
-		</div>
-		
-
-		</form>
-		
 	</div>
-	
 
-	
-</md-card>
-</md-content>
+
+
+	</div>
+</div>

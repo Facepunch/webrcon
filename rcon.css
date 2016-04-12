@@ -1,100 +1,135 @@
-H3
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+
+body
 {
-	
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #cfd2da;
+  background-color: #252830;
 }
 
-.AppBackground
+a
 {
-	background-color: #ccc;
+	color: #1ca8dd;
 }
 
-.DropShadow
+a:hover
 {
-	box-shadow: 0 1px 8px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12);
-}
-
-#ConsoleController md-input-container .md-errors-spacer 
-{
-    min-height: 0;
-}
-
-#ConsoleController md-input-container
-{
-	margin: 0;
-}
-
-#ConsoleController .Output
-{
-
-	font-size: 16px;
-	white-space: pre-wrap;
-	padding: 8px;
-}
-
-#ConsoleController .Output div 
-{
-	padding: 2px 4px;
-	color: #888;
-}
-
-#ConsoleController .Output .Command
-{
-	color: #009688;
-    background-color: rgba(137, 255, 0, 0.44);
-}
-
-#ConsoleController .Output .Warning
-{
-	color: #c79621;
-	background-color: rgba(255, 128, 0, 0.1);
-}
-
-#ConsoleController .Output .Assert, #ConsoleController .Output .Error
-{
-	color: #b42626;
-	background-color: rgba(255,0,0,.1);
-}
-
-#ConsoleController .Input input
-{
-	color: #000;
-}
-
-a 
-{
-	color: #FF4081;
+	color: #fff;
 	text-decoration: none;
 }
 
-.menu
+.right 
 {
-	background-color: #1976D2;
+	text-align: right;
 }
 
-.menu_button
+.center
 {
-	display: block;
-    padding: 0 16px 0 32px;
-    text-transform: none;
-    text-rendering: optimizeLegibility;
-    font-weight: 500;
-	border-radius: 0;
-    color: white;
-    cursor: pointer;
-    display: block;
-    align-items: inherit;
-    line-height: 40px;
-    margin: 0;
-    max-height: 40px;
-    overflow: hidden;
-    padding: 0px 16px;
-    text-align: left;
-    text-decoration: none;
-    white-space: normal;
-    width: 100%;
+	text-align: center;
 }
 
-.menu_button.selected
+
+.float-left { float: left; }
+
+#ConsoleController .Output
 {
-	background: #90A4AE;
+	font-family: monospace;
+    font-size: 12px;
+	white-space: pre-wrap;
+}
+
+.scrollable 
+{
+	overflow: auto;
+}
+
+
+.nav-sidebar 
+{
+	margin-top: 64px;
+  margin-right: 16px;
+}
+
+.nav-sidebar > li > a 
+{
+  padding-right: 20px;
+  padding-left: 20px;
+  border-radius: 5px;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus 
+{
+  color: #fff;
+  background-color: #428bca;
+}
+
+table
+{
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+}
+
+.fade 
+{
+	opacity: 0.5;
+}
+
+th, td 
+{
+		padding: 5px 8px;
+		border-bottom: 1px solid #414758;
+}
+
+th.active 
+{
+	color: #1bc98e;
+	border-color: #1bc98e;
+}
+
+th 
+{
+	border-bottom: 2px solid #414758;
+	border-radius: 10px;
+}
+
+th:first-child 
+{
+    border-radius: 6px;
+}
+
+th:last-child 
+{
+    border-radius: 0 6px 0 0;
+}
+
+th:only-child
+{
+    border-radius: 6px 6px 0 0;
+}
+
+
+
+.btn-default, .btn-default:active, .form-control
+{
+	background: rgba( 255, 255, 255, 0.3 );
+	border: none;
+	color: #cfd2da;
+	text-shadow: none;
+}
+
+.btn-default:hover 
+{
+	background: #1ca8dd;
+	color: #fff;
+}
+
+.panel 
+{
+	background-color: #434857;
 }

@@ -1,56 +1,63 @@
 <div ng-controller="PlayerListController" flex layout="column" id="PlayerListController">
-<md-content flex id="vertical-container">
-	<md-list>
-			<md-list-item class="" ng-repeat="line in Players | filter : FilterText" href="#/{{address}}/player/{{line.SteamID}}/">
-				<div flex layout="row">
-					<div flex class="md-list-item-text">
-						<h3><a href="#/{{address}}/player/{{line.SteamID}}/">{{line.DisplayName}}</a></h3>
-					</div>
-				</div>
 
-				<div flex="20"style="text-align: right">
-					{{line.SteamID}}	 <span>{{line.OwnerSteamID}}</span>		
-				</div>
-				
-				<div flex="5"style="text-align: right">
-					{{line.VoiationLevel}}			
-				</div>
-								
-				<div flex="10"style="text-align: right">
-					Level: {{line.CurrentLevel}}			
-				</div>
-				
-				<div flex="10"style="text-align: right">
-					XP: <a href="#/{{address}}/player/{{line.SteamID}}/xp">{{line.UnspentXp}}</a>
-				</div>
-				
-				<div flex="20"style="text-align: right">
-					{{line.Address}}		
-				</div>
+	<div class="right row">
+		<div class="float-left">
+			<input ng-model="FilterText" style="width: 300px" class="form-control" placeholder="Filter..">
+		</div>
+		<div class="btn-group">
+			<button ng-click="Refresh()" class="btn btn-default" type="button"><i class="glyphicon glyphicon-refresh"></i></button>
+		</div>
+	</div>
 
-				<div flex="10" class="md-list-item-text" style="text-align: right">Ping {{line.Ping}}</div>
-				
-				<div flex="10" style="text-align: right">
+	<div class="row">
+		<table>
+			<thead>
+				<tr>
+					<th ng-click="Order( 'DisplayName' )" ng-class="SortClass( 'DisplayName' )">Username</th>
+					<th style="text-align: right" ng-click="Order( 'SteamID' )" ng-class="SortClass( 'SteamID' )">Steamid</th>
+					<th style="text-align: right" ng-click="Order( 'VoiationLevel' )" ng-class="SortClass( 'VoiationLevel' )">Voilation</th>
+					<th style="text-align: right" ng-click="Order( 'CurrentLevel' )" ng-class="SortClass( 'CurrentLevel' )">Level</th>
+					<th style="text-align: right" ng-click="Order( 'UnspentXp' )" ng-class="SortClass( 'UnspentXp' )">XP</th>
+					<th style="text-align: right" ng-click="Order( 'Address' )" ng-class="SortClass( 'Address' )">Address</th>
+					<th ng-click="Order( 'Ping' )" ng-class="SortClass( 'Ping' )">Ping</th>
+					<th ng-click="Order( 'ConnectedSeconds' )" ng-class="SortClass( 'ConnectedSeconds' )">Duration</th>
+				</tr>
+			</thead>
+			<tr ng-repeat="line in Players | orderBy: OrderBy | filter:FilterText" href="#/{{address}}/player/{{line.SteamID}}/">
+				<td>
+					<a href="#/{{address}}/player/{{line.SteamID}}/">{{line.DisplayName}}</a>
+				</td>
+
+				<td style="text-align: right">
+					<a href="#/{{address}}/player/{{line.SteamID}}/">{{line.SteamID}}</a>
+				</td>
+
+				<td style="text-align: right" ng-class="{fade: line.VoiationLevel == 0 }">
+					{{line.VoiationLevel}}
+				</td>
+
+				<td style="text-align: right">
+					{{line.CurrentLevel}}
+				</td>
+
+				<td style="text-align: right">
+					<a href="#/{{address}}/player/{{line.SteamID}}/xp">{{line.UnspentXp}}</a>
+				</td>
+
+				<td style="text-align: right">
+					{{line.Address}}
+				</td>
+
+				<td class="md-list-item-text" style="text-align: right">{{line.Ping}}</td>
+
+				<td style="text-align: right">
 					{{line.ConnectedSeconds | SecondsToDuration}}
-				</div>
-				
-				<md-divider></md-divider>			
-			</md-list-item>
-	</md-list>
-</md-content>
+				</td>
 
- <md-toolbar class="Input">
-      <div class="md-toolbar-tools">
-	  
-		<span flex>
-			<input ng-model="FilterText" style="width: 100%">
-		</span>
-		
-		<md-button class="md-icon-button" aria-label="Settings" ng-click="SubmitCommand()">
-			<md-icon md-menu-origin md-svg-icon="image/arrow-right-bold-hexagon-outline.svg"></md-icon>
-        </md-button>
+				<md-divider></md-divider>
+			</tr>
+		</table>
 
-      </div>
-    </md-toolbar>
+	</div>
 
 </div>

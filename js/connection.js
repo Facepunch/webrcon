@@ -7,8 +7,6 @@ function ConnectionController( $scope, rconService, $routeParams, $timeout, $loc
 	$scope.Password = "";
 	$scope.SaveConnection = true;
 
-	console.log( $location.search );
-
 	if ( localStorage.previousConnections != null )
 		$scope.PreviousConnects = angular.fromJson( localStorage.previousConnections );
 
