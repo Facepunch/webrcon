@@ -1,11 +1,13 @@
 
 app.controller( 'ConnectionController', ConnectionController );
 
-function ConnectionController( $scope, rconService, $routeParams, $timeout )
+function ConnectionController( $scope, rconService, $routeParams, $timeout, $location )
 {
 	$scope.Address = "";
 	$scope.Password = "";
 	$scope.SaveConnection = true;
+
+	console.log( $location.search );
 
 	if ( localStorage.previousConnections != null )
 		$scope.PreviousConnects = angular.fromJson( localStorage.previousConnections );
@@ -53,13 +55,31 @@ function ConnectionController( $scope, rconService, $routeParams, $timeout )
 	{
 		$scope.Address = $routeParams.address;
 
+		//
+		// If a password was passed as a search param, use that
+		//
+		var pw = $location.search().password;
+		if ( pw )
+		{
+			$scope.Password = pw;
+			$location.search( "password", null );
+		}
+
 		if ( $scope.Address != null )
 		{
+			// If we have a password (passed as a search param) then connect using that
+			if ( $scope.Password != "" )
+			{
+				$scope.Connect();
+				return;
+			}
+
 			var foundAddress = Enumerable.From( $scope.PreviousConnects ).Where( function ( x ) { return x.Address == $scope.Address } ).First();
 			if ( foundAddress != null )
 			{
 				$scope.ConnectTo( foundAddress );
-			}			
+			}
+
 		}
 
 	}, 20 );
