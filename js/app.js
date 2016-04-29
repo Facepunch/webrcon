@@ -8,6 +8,7 @@ app.config( function ( $routeProvider )
 {
 	$routeProvider.when( "/home", { Title: "Home" } )
 	$routeProvider.when( "/:address/console", { Title: "Console", templateUrl: "html/console.html", Nav: true } )
+	$routeProvider.when( "/:address/chat", { Title: "Chat", templateUrl: "html/chat.html", Nav: true } )
 	$routeProvider.when( "/:address/playerlist", { Title: "Player List", templateUrl: "html/playerlist.html", Nav: true } )
 	$routeProvider.when( "/:address/player/:userid", { Title: "Player Info", templateUrl: "html/playerInfo.html" } )
 	$routeProvider.when( "/:address/player/:userid/xp", { Title: "Player Xp Stats", templateUrl: "html/playerXp.html" } )
