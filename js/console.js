@@ -17,8 +17,13 @@ function ConsoleController( $scope, rconService, $timeout )
 
 	$scope.OnMessage = function( msg )
 	{
+		
 		if ( msg.Message.startsWith( "[rcon] " ) ) return;
-		if ( msg.Type != "Message" && msg.Type != "Error" && msg.Type != "Warning" ) return;
+		if ( msg.Type != "Generic" && msg.Type != "Log" && msg.Type != "Error" && msg.Type != "Warning" )
+		{
+			console.log( msg );
+			return;
+		}
 
 		msg.Class = msg.Type;
 		$scope.Output.push( msg );
@@ -40,7 +45,7 @@ function ConsoleController( $scope, rconService, $timeout )
 	{
 		console.log( "GetHistory" );
 
-		rconService.Request( "chat.tail 128", $scope, function ( msg )
+		rconService.Request( "console.tail 128", $scope, function ( msg )
 		{
 			var messages = JSON.parse( msg.Message );
 

@@ -7,22 +7,20 @@ function ChatController( $scope, rconService, $timeout )
 
 	$scope.SubmitCommand = function ()
 	{
-		$scope.Output.push( { Message: $scope.Command, Type: 'Command' } );
-
 		rconService.Command( "say " + $scope.Command, 1 );
 		$scope.Command = "";
 	}
 
-	$scope.$on( "OnMessage", function ( event, msg ) { $scope.OnMessage( msg ); } );
-
-	$scope.OnMessage = function( msg )
+	$scope.$on( "OnMessage", function ( event, msg )
 	{
 		if ( msg.Type != "Chat" ) return;
 
-		msg.Class = msg.Type;
-		msg.Message = msg.Message.substr( 7 );
-		$scope.Output.push( msg );
+		$scope.OnMessage( JSON.parse( msg.Message ) );
+	} );
 
+	$scope.OnMessage = function( msg )
+	{
+		$scope.Output.push( msg );
 		$timeout( $scope.ScrollToBottom, 50 );
 	}
 
@@ -40,7 +38,7 @@ function ChatController( $scope, rconService, $timeout )
 	{
 		console.log( "GetHistory" );
 
-		rconService.Request( "console.tail 4096", $scope, function ( msg )
+		rconService.Request( "chat.tail 512", $scope, function ( msg )
 		{
 			var messages = JSON.parse( msg.Message );
 

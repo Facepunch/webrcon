@@ -133,3 +133,12 @@ th:only-child
 {
 	background-color: #434857;
 }
+
+.chatname
+{
+	display: block;
+	width: 200px;
+	float: left;
+	text-align: right;
+	padding-right: 8px;
+}
