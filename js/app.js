@@ -7,6 +7,7 @@ app.service( 'rconService', [RconService] );
 app.config( function ( $routeProvider )
 {
 	$routeProvider.when( "/home", { Title: "Home" } )
+	$routeProvider.when( "/:address/info", { Title: "Server", templateUrl: "html/serverInfo.html", Nav: true } )
 	$routeProvider.when( "/:address/console", { Title: "Console", templateUrl: "html/console.html", Nav: true } )
 	$routeProvider.when( "/:address/chat", { Title: "Chat", templateUrl: "html/chat.html", Nav: true } )
 	$routeProvider.when( "/:address/playerlist", { Title: "Player List", templateUrl: "html/playerlist.html", Nav: true } )

@@ -1,0 +1,75 @@
+
+<div ng-controller="ServerInfoController" flex layout="column" id="ServerInfoController">
+
+	<div class="row">
+
+		<div class="col-lg-12">
+			<h2 class="center">
+				{{info.Hostname}}
+				<div class="btn-group pull-right">
+					<button ng-click="Refresh()" class="btn btn-default" type="button"><i class="glyphicon glyphicon-refresh"></i></button>
+				</div>
+			</h2>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="container">
+				<p>Map: {{info.Map}}</p>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="container">
+				<p>Max Players: {{info.MaxPlayers}}</p>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="container">
+				<p>GameTime: {{info.GameTime}}</p>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="container">
+				<p>Framerate: <span class="badge">{{info.Framerate}}</span></p>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="container">
+				<p>EntityCount: <span class="badge">{{info.EntityCount}}</span></p>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="container">
+				<p>Uptime: <span class="badge">{{info.Uptime}}s</span></p>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="container">
+				<p>Players: <span class="badge">{{info.Players}}</span></p>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="container">
+				<p>Joining: <span class="badge">{{info.Joining}}</span></p>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="container">
+				<p>Queued: <span class="badge">{{info.Queued}}</span></p>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="right row">
+		
+	</div>
+
+</div>
