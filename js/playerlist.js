@@ -32,6 +32,13 @@ function PlayerListController( $scope, rconService, $interval )
 		return null;
 	}
 
+	$scope.KickPlayer = function ( id )
+	{
+		rconService.Command( 'kick ' + id );
+
+		$scope.Refresh();
+	}
+
 	rconService.InstallService( $scope, $scope.Refresh )
 
 	var timer = $interval( function ()
