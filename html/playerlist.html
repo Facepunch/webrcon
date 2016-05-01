@@ -13,6 +13,8 @@
 		<table>
 			<thead>
 				<tr>
+					<th>Actions</th>
+
 					<th ng-click="Order( 'DisplayName' )" ng-class="SortClass( 'DisplayName' )">Username</th>
 					<th style="text-align: right" ng-click="Order( 'SteamID' )" ng-class="SortClass( 'SteamID' )">Steamid</th>
 					<th style="text-align: right" ng-click="Order( 'VoiationLevel' )" ng-class="SortClass( 'VoiationLevel' )">Voilation</th>
@@ -24,6 +26,20 @@
 				</tr>
 			</thead>
 			<tr ng-repeat="line in Players | orderBy: OrderBy | filter:FilterText" href="#/{{address}}/player/{{line.SteamID}}/">
+
+				<td>
+					<div class="btn-group">
+						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    	<span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
+					  	</button>
+					  	<ul class="dropdown-menu">
+						    <li>
+						    	<a href ng-click="KickPlayer(line.SteamID)">Kick</a>
+						    </li>
+						</ul>
+					</div>
+				</td>
+
 				<td>
 					<a href="#/{{address}}/player/{{line.SteamID}}/">{{line.DisplayName}}</a>
 				</td>

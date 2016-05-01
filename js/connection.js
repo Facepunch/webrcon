@@ -20,6 +20,8 @@ function ConnectionController( $scope, rconService, $routeParams, $timeout, $loc
 
 		$scope.LastErrorMessage = null;
 		rconService.Connect( $scope.Address, $scope.Password );
+
+		$location.path('/' + $scope.Address + '/info');
 	}
 
 	$scope.ConnectTo = function ( c )
