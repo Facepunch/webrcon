@@ -3,16 +3,46 @@ app.controller( 'ConsoleController', ConsoleController );
 
 function ConsoleController( $scope, rconService, $timeout )
 {
-	$scope.Output = new Array();
+	$scope.Output = [];
+	$scope.commandHistory = [];
+	$scope.commandHistoryIndex = 0;
+
+	$scope.KeyUp = function (event)
+	{
+		switch(event.keyCode) {
+			
+			// Arrow Up Key
+			case 38:
+				// rotate through commandHistory
+				$scope.commandHistoryIndex++;
+				if($scope.commandHistoryIndex >= $scope.commandHistory.length) {
+					$scope.commandHistoryIndex = 0;
+				}
+
+				// set command from history 
+				if($scope.commandHistory[$scope.commandHistoryIndex]) {
+					$scope.Command = $scope.commandHistory[$scope.commandHistoryIndex];
+				}
+				
+				break;
+
+			default:
+				// reset command history index
+				$scope.commandHistoryIndex = 0;
+				break;
+		}
+	}
 
 	$scope.SubmitCommand = function ()
 	{
-		$scope.OnMessage( { Message: $scope.Command, Type: 'Command' } )
+		$scope.OnMessage( { Message: $scope.Command, Type: 'Command' } );
+
+		$scope.commandHistory.push($scope.Command);
 
 		rconService.Command( $scope.Command, 1 );
 		$scope.Command = "";
+		$scope.commandHistoryIndex = 0;
 	}
-
 	$scope.$on( "OnMessage", function ( event, msg ) { $scope.OnMessage( msg ); } );
 
 	$scope.OnMessage = function( msg )
