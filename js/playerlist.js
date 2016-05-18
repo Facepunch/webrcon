@@ -3,14 +3,14 @@ app.controller( 'PlayerListController',  PlayerListController );
 
 function PlayerListController( $scope, rconService, $interval )
 {
-	$scope.Output = new Array();
+	$scope.Output = [];
 	$scope.OrderBy = '-ConnectedSeconds';
 
 	$scope.Refresh = function ()
 	{
-		rconService.Request( "playerlist", $scope, function ( msg )
+		rconService.getUsers($scope, function ( users )
 		{
-			$scope.Players = JSON.parse( msg.Message );
+			$scope.Players = users;
 		});
 	}
 
