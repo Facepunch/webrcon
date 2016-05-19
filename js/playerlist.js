@@ -8,9 +8,9 @@ function PlayerListController( $scope, rconService, $interval )
 
 	$scope.Refresh = function ()
 	{
-		rconService.getUsers($scope, function ( users )
+		rconService.getPlayers($scope, function ( players )
 		{
-			$scope.Players = users;
+			$scope.Players = players;
 		});
 	}
 

@@ -11,8 +11,25 @@ function ConsoleController( $scope, rconService, $timeout )
 	{
 		switch(event.keyCode) {
 			
-			// Arrow Up Key
+			// Arrow Key Up
 			case 38:
+
+				// rotate through commandHistory
+				$scope.commandHistoryIndex--;
+				if($scope.commandHistoryIndex < 0) {
+					$scope.commandHistoryIndex = $scope.commandHistory.length;
+				}
+
+				// set command from history 
+				if($scope.commandHistory[$scope.commandHistoryIndex]) {
+					$scope.Command = $scope.commandHistory[$scope.commandHistoryIndex];
+				}
+				
+				break;
+
+			// Arrow Key Down
+			case 40:
+			
 				// rotate through commandHistory
 				$scope.commandHistoryIndex++;
 				if($scope.commandHistoryIndex >= $scope.commandHistory.length) {
@@ -28,7 +45,7 @@ function ConsoleController( $scope, rconService, $timeout )
 
 			default:
 				// reset command history index
-				$scope.commandHistoryIndex = 0;
+				$scope.commandHistoryIndex = $scope.commandHistory.length;
 				break;
 		}
 	}

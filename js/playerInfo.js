@@ -9,29 +9,32 @@ function PlayerInfoController( $scope, rconService, $routeParams )
 
 	$scope.refresh = function ()
 	{
-		rconService.getUsers($scope, function(users) {
+		rconService.getPlayers($scope, function(players) {
 
-			for(var i in users) {
-				if(users[i].SteamID === $scope.userid){
+			for(var i in players) {
+				if(players[i].SteamID === $scope.userid){
 
 					// set player data
-					$scope.info = users[i];
+					$scope.info = players[i];
 
 					return;
 				}
 			}
 
-			// info not found
+			// player not found
+			// reset data to null
 			$scope.info = null;
 		});
 	}
 
 	$scope.getUsername = function ()
 	{
+		// try to find players name in info
 		if($scope.info && $scope.info.DisplayName) {
 			return $scope.info.DisplayName;
 		}
 
+		// otherwise show the id
 		return $scope.userid;
 	}
 

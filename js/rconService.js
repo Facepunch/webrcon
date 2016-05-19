@@ -102,7 +102,7 @@ function RconService()
 		}
 	}
 
-	s.getUsers = function(scope, success) {
+	s.getPlayers = function(scope, success) {
 		this.Request( "playerlist", scope, function ( response )
 		{
 			var players = JSON.parse( response.Message );
