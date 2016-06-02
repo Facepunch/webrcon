@@ -33,8 +33,24 @@
 					    	<span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
 					  	</button>
 					  	<ul class="dropdown-menu">
+					  		<li>
+						    	<a href="#/{{address}}/player/{{line.SteamID}}/xp">
+									<span class="glyphicon glyphicon-education"></span>
+									XP Info
+								</a>
+						    </li>
 						    <li>
-						    	<a href ng-click="KickPlayer(line.SteamID)">Kick</a>
+						    	<a href="http://www.steamcommunity.com/profiles/{{line.SteamID}}" target="_blank">
+									<span class="glyphicon glyphicon-info-sign"></span>
+									Steam Profile
+								</a>
+						    </li>
+						    <li class="divider"></li>
+						    <li>
+						    	<a href ng-click="KickPlayer(line.SteamID)">
+						    		<span class="glyphicon glyphicon-trash"></span>
+						    		Kick
+						    	</a>
 						    </li>
 						</ul>
 					</div>

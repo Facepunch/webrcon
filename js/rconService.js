@@ -1,9 +1,9 @@
 
 function RconService()
 {
-	var s = {};
-
-	s.Callbacks = {};
+	var s = {
+		Callbacks: {}
+	};
 
 	s.Connect = function ( addr, pass )
 	{
@@ -100,6 +100,17 @@ function RconService()
 		{
 			func();
 		}
+	}
+
+	s.getPlayers = function(scope, success) {
+		this.Request( "playerlist", scope, function ( response )
+		{
+			var players = JSON.parse( response.Message );
+
+			if(typeof success === 'function') {
+				success.call(scope, players);
+			}
+		});
 	}
 
 	return s;

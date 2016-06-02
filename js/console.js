@@ -3,38 +3,114 @@ app.controller( 'ConsoleController', ConsoleController );
 
 function ConsoleController( $scope, rconService, $timeout )
 {
-	$scope.Output = new Array();
+	$scope.Output = [];
+	$scope.commandHistory = [];
+	$scope.commandHistoryIndex = 0;
+
+	$scope.KeyUp = function (event)
+	{
+		switch(event.keyCode) {
+			
+			// Arrow Key Up
+			case 38:
+
+				// rotate through commandHistory
+				$scope.commandHistoryIndex--;
+				if($scope.commandHistoryIndex < 0) {
+					$scope.commandHistoryIndex = $scope.commandHistory.length;
+				}
+
+				// set command from history 
+				if($scope.commandHistory[$scope.commandHistoryIndex]) {
+					$scope.Command = $scope.commandHistory[$scope.commandHistoryIndex];
+				}
+				
+				break;
+
+			// Arrow Key Down
+			case 40:
+			
+				// rotate through commandHistory
+				$scope.commandHistoryIndex++;
+				if($scope.commandHistoryIndex >= $scope.commandHistory.length) {
+					$scope.commandHistoryIndex = 0;
+				}
+
+				// set command from history 
+				if($scope.commandHistory[$scope.commandHistoryIndex]) {
+					$scope.Command = $scope.commandHistory[$scope.commandHistoryIndex];
+				}
+				
+				break;
+
+			default:
+				// reset command history index
+				$scope.commandHistoryIndex = $scope.commandHistory.length;
+				break;
+		}
+	}
 
 	$scope.SubmitCommand = function ()
 	{
-		$scope.OnMessage( { Message: $scope.Command, Type: 'Command' } )
+		$scope.OnMessage( { Message: $scope.Command, Type: 'Command' } );
+
+		$scope.commandHistory.push($scope.Command);
 
 		rconService.Command( $scope.Command, 1 );
 		$scope.Command = "";
+		$scope.commandHistoryIndex = 0;
 	}
-
 	$scope.$on( "OnMessage", function ( event, msg ) { $scope.OnMessage( msg ); } );
 
 	$scope.OnMessage = function( msg )
 	{
 		
-		if ( msg.Message.startsWith( "[rcon] " ) ) return;
-		if ( msg.Type != "Generic" && msg.Type != "Log" && msg.Type != "Error" && msg.Type != "Warning" )
-		{
-			console.log( msg );
-			return;
+		if ( msg.Message.startsWith( "[rcon] " ) ) {
+			return;	
 		}
 
-		msg.Class = msg.Type;
-		$scope.Output.push( msg );
+		switch(msg.Type) {
+			case 'Generic':
+			case 'Log':
+			case 'Error':
+			case 'Warning':
+				$scope.addOutput(msg);
+				break;
 
-		$timeout( $scope.ScrollToBottom, 50 );
+			default: 
+				console.log( msg );
+				return;
+		}
 	}
 
 	$scope.ScrollToBottom = function()
 	{
-		// TODO - don't scroll if we're not at the bottom !
-		$( "#ConsoleController .Output" ).scrollTop( $( "#ConsoleController .Output" )[0].scrollHeight );
+		var element = $( "#ConsoleController .Output" );
+
+		$timeout( function() {
+			element.scrollTop( element.prop('scrollHeight') );
+		}, 50 );
+	}
+
+	$scope.isOnBottom = function()
+	{
+		// get jquery element
+		var element = $( "#ConsoleController .Output" );
+
+		// height of the element
+		var height = element.height();
+
+		// scroll position from top position
+		var scrollTop = element.scrollTop();
+
+		//  full height of the element
+		var scrollHeight = element.prop('scrollHeight');
+
+		if((scrollTop + height) > (scrollHeight - 10)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	//
@@ -43,14 +119,26 @@ function ConsoleController( $scope, rconService, $timeout )
 	//
 	$scope.GetHistory = function ()
 	{
-		console.log( "GetHistory" );
-
 		rconService.Request( "console.tail 128", $scope, function ( msg )
 		{
 			var messages = JSON.parse( msg.Message );
 
-			messages.forEach( function ( x ) { $scope.OnMessage( x ); } );
+			messages.forEach( function ( msg ) {
+			 $scope.OnMessage( msg ); 
+			});
+
+			$scope.ScrollToBottom();
 		} );
+	}
+
+	$scope.addOutput = function (msg)
+	{
+		msg.Class = msg.Type;
+		$scope.Output.push( msg );
+
+		if($scope.isOnBottom()) {
+			$scope.ScrollToBottom();
+		}
 	}
 
 	rconService.InstallService( $scope, $scope.GetHistory )
