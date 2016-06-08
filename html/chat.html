@@ -2,10 +2,11 @@
 
     <div style="height: 600px" class="Output scrollable">
     	<div ng-repeat="line in Output" ng-class="line.Class">
-    		<span class="chatname">
+    		<span class="badge">
+    			{{(line.Time * 1000) | date:'shortTime'}}
     			<a href="#/{{address}}/player/{{line.UserId}}/" style="color: {{line.Color}}">
     				{{line.Username}}
-    			</a>:
+    			</a>
     		</span> {{line.Message}}
     	</div>
     </div>
