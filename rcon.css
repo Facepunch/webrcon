@@ -21,18 +21,10 @@ a:hover
 	text-decoration: none;
 }
 
-.right 
-{
-	text-align: right;
-}
-
 .center
 {
 	text-align: center;
 }
-
-
-.float-left { float: left; }
 
 #ConsoleController .Output
 {
@@ -68,52 +60,21 @@ a:hover
   background-color: #428bca;
 }
 
-table
-{
-	border-collapse: collapse;
-	border-spacing: 0;
-	width: 100%;
-}
-
 .fade 
 {
 	opacity: 0.5;
 }
 
-th, td 
+.table > tbody > tr:hover
 {
-		padding: 5px 8px;
-		border-bottom: 1px solid #414758;
+	background-color: rgba( 255, 255, 255, 0.3 );
 }
 
-th.active 
+.table > thead > tr > th.sorting 
 {
 	color: #1bc98e;
 	border-color: #1bc98e;
 }
-
-th 
-{
-	border-bottom: 2px solid #414758;
-	border-radius: 10px;
-}
-
-th:first-child 
-{
-    border-radius: 6px;
-}
-
-th:last-child 
-{
-    border-radius: 0 6px 0 0;
-}
-
-th:only-child
-{
-    border-radius: 6px 6px 0 0;
-}
-
-
 
 .btn-default, .btn-default:active, .form-control
 {
