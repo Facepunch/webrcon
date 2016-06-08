@@ -1,63 +1,42 @@
 
-<div ng-controller="PlayerXpController" flex layout="column" id="PlayerXpController">
+<div ng-controller="PlayerXpController" id="PlayerXpController">
 
-	<md-content flex layout-padding>
-
-		<h2>Statistics for player <a href="#/{{address}}/player/{{userid}}/">{{userid}}</a></h2>
-
-		<div layout="row" layout-sm="column">
-
-			<div flex>
-				<md-card>
-					<md-card-title>
-						<md-card-title-text>
-							<span class="md-headline">Xp Income Sources</span>
-							<span class="md-subhead">Where has this user got their Xp from</span>
-						</md-card-title-text>
-					</md-card-title>	
-					<md-card-content layout="row" layout-align="space-between">
-						<md-card-title-media flex>
-							<nvd3 flex options="Sources.Options" data="Sources.Data"></nvd3>
-						</md-card-title-media>
-					</md-card-content>
-				</md-card>
-			</div>
-
-			<div flex>
-				<md-card>
-					<md-card-title>
-						<md-card-title-text>
-							<span class="md-headline">Xp Outgoing Sources</span>
-							<span class="md-subhead">Where has this user spent their Xp</span>
-						</md-card-title-text>
-					</md-card-title>
-					<md-card-content layout="row" layout-align="space-between">
-						<md-card-title-media flex>
-							<nvd3 flex options="Outgoings.Options" data="Outgoings.Data"></nvd3>
-						</md-card-title-media>
-					</md-card-content>
-				</md-card>
-			</div>
-
+	<div class="row">
+		<div class="col-md-12">
+			<h2>
+				Statistics for player: <a href="#/{{address}}/player/{{userid}}/">{{userid}}</a>
+			</h2>
 		</div>
+	</div>
 
-		<div flex>
-			<md-card>
-				<md-card-title>
-					<md-card-title-text>
-						<span class="md-headline">Xp Over Time</span>
-						<span class="md-subhead">How much XP has this user got over time</span>
-					</md-card-title-text>
-				</md-card-title>
-				<md-card-content layout="row" layout-align="space-between">
-					<md-card-title-media flex>
-						<nvd3 flex options="OverTime.Options" data="OverTime.Data"></nvd3>
-					</md-card-title-media>
-				</md-card-content>
-			</md-card>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Xp Income Sources</h3>
+			<h5>Where has this user got their Xp from</h5>
+			<div class="panel">
+				<nvd3 options="Sources.Options" data="Sources.Data"></nvd3>
+			</div>
 		</div>
+	</div>
 
-	</md-content>
-
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Xp Outgoing Sources</h3>
+			<h5>Where has this user spent their Xp</h5>
+			<div class="panel">
+				<nvd3 flex options="Outgoings.Options" data="Outgoings.Data"></nvd3>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+					<h3>Xp Over Time</h3>
+					<h5>How much XP has this user got over time</h5>
+			<div class="panel">
+				<nvd3 flex options="OverTime.Options" data="OverTime.Data"></nvd3>
+			</div>
+		</div>
+	</div>
 
 </div>

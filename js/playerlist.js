@@ -14,20 +14,20 @@ function PlayerListController( $scope, rconService, $interval )
 		});
 	}
 
-	$scope.Order = function( o )
+	$scope.Order = function( field )
 	{
-		if ( $scope.OrderBy == o )
+		if ( $scope.OrderBy === field )
 		{
-			o = '-' + o;
+			field = '-' + field;
 		}
 
-		$scope.OrderBy = o;
+		$scope.OrderBy = field;
 	}
 
-	$scope.SortClass = function( o )
+	$scope.SortClass = function( field )
 	{
-		if ( $scope.OrderBy == o ) return "active";
-		if ( $scope.OrderBy == "-" + o ) return "active descending";
+		if ( $scope.OrderBy === field ) return "sorting";
+		if ( $scope.OrderBy === "-" + field ) return "sorting descending";
 
 		return null;
 	}
@@ -41,10 +41,10 @@ function PlayerListController( $scope, rconService, $interval )
 
 	rconService.InstallService( $scope, $scope.Refresh )
 
-	var timer = $interval( function ()
-	{
-		//$scope.Refresh();
-	}.bind( this ), 1000 );
+	// var timer = $interval( function ()
+	// {
+	// 	//$scope.Refresh();
+	// }.bind( this ), 1000 );
 
-	$scope.$on( '$destroy', function () { $interval.cancel( timer ) } )
+	//$scope.$on( '$destroy', function () { $interval.cancel( timer ) } )
 }
