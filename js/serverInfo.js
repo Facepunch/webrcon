@@ -5,16 +5,12 @@ function ServerInfoController( $scope, rconService, $routeParams )
 {
 	$scope.info = {};
 
-	$scope.Refresh = function ()
+	$scope.refresh = function ()
 	{
-		rconService.Request( 'serverinfo', $scope, function ( msg )
-		{
+		rconService.Request( 'serverinfo', $scope, function ( msg ) {
 			$scope.info = JSON.parse( msg.Message );
-			// $scope.Players = JSON.parse( msg.Message );
-
-			console.log($scope.info);
 		});
 	}
 
-	rconService.InstallService( $scope, $scope.Refresh );
+	rconService.InstallService( $scope, $scope.refresh );
 }
