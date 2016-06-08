@@ -3,7 +3,7 @@ app.controller( 'ChatController', ChatController );
 
 function ChatController( $scope, rconService, $timeout )
 {
-	$scope.Output = new Array();
+	$scope.Output = [];
 
 	$scope.SubmitCommand = function ()
 	{
@@ -13,21 +13,48 @@ function ChatController( $scope, rconService, $timeout )
 
 	$scope.$on( "OnMessage", function ( event, msg )
 	{
-		if ( msg.Type != "Chat" ) return;
+		if ( msg.Type !== "Chat" ) return;
 
 		$scope.OnMessage( JSON.parse( msg.Message ) );
-	} );
+	});
 
 	$scope.OnMessage = function( msg )
 	{
 		$scope.Output.push( msg );
-		$timeout( $scope.ScrollToBottom, 50 );
+		
+		if($scope.isOnBottom()) {
+			$scope.ScrollToBottom();
+		}
 	}
 
 	$scope.ScrollToBottom = function()
 	{
-		// TODO - don't scroll if we're not at the bottom !
-		$( "#ChatController .Output" ).scrollTop( $( "#ChatController .Output" )[0].scrollHeight );
+		var element = $( "#ChatController .Output" );
+
+		$timeout( function() {
+			element.scrollTop( element.prop('scrollHeight') );
+		}, 50 );
+	}
+
+	$scope.isOnBottom = function()
+	{
+		// get jquery element
+		var element = $( "#ChatController .Output" );
+
+		// height of the element
+		var height = element.height();
+
+		// scroll position from top position
+		var scrollTop = element.scrollTop();
+
+		//  full height of the element
+		var scrollHeight = element.prop('scrollHeight');
+
+		if((scrollTop + height) > (scrollHeight - 10)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	//
@@ -36,13 +63,15 @@ function ChatController( $scope, rconService, $timeout )
 	//
 	$scope.GetHistory = function ()
 	{
-		console.log( "GetHistory" );
-
 		rconService.Request( "chat.tail 512", $scope, function ( msg )
 		{
 			var messages = JSON.parse( msg.Message );
 
-			messages.forEach( function ( x ) { $scope.OnMessage( x ); } );
+			messages.forEach( function ( message ) {
+			 $scope.OnMessage( message ); 
+			});
+
+			$scope.ScrollToBottom();
 		} );
 	}
 
