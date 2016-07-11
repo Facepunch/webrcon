@@ -11,6 +11,24 @@
     <link href="rcon.css" rel="stylesheet">
   </head>
   <body ng-controller="RconController">
+
+	<nav class="navbar navbar-default" ng-controller="ServerInfoController" ng-show="info.Hostname != null">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">{{info.Hostname}}</a>
+			
+				<ul class="nav navbar-nav">
+					<li><div class="navbar-info" title="Uptime"><span class="glyphicon glyphicon-time"></span> {{info.Uptime|SecondsToDuration}}</div></li>
+					<li><div class="navbar-info" title="Map Name"><span class="glyphicon glyphicon-globe"></span> {{info.Map}}</div></li>
+					<li><div class="navbar-info" title="Current Players/Maximum Players"><span class="glyphicon glyphicon-user"></span> {{info.Players|number}}/{{info.MaxPlayers|number}}</div></li>
+					<li><div class="navbar-info" title="Framerate"><span class="glyphicon glyphicon-hourglass"></span> {{info.Framerate|number}}fps</div></li>
+					<li><div class="navbar-info" title="Entity Count"><span class="glyphicon glyphicon-oil"></span> {{info.EntityCount|number}}</div></li>
+				</ul>
+					
+			</div>
+				
+			</div>
+	</nav>
   
   	<div class="container">
 

@@ -2,12 +2,9 @@
 
     <div style="height: 600px" class="Output scrollable">
     	<div ng-repeat="line in Output" ng-class="line.Class">
-    		<span class="badge">
-    			{{(line.Time * 1000) | date:'shortTime'}}
-    			<a href="#/{{address}}/player/{{line.UserId}}/" style="color: {{line.Color}}">
-    				{{line.Username}}
-    			</a>
-    		</span> {{line.Message}}
+    		<span style="min-width: 60px; display:inline-block;">{{(line.Time * 1000) | date:'shortTime'}}</span>
+			<span style="min-width: 130px; display:inline-block; text-align: right;"><a href="#/{{address}}/player/{{line.UserId}}/">{{line.Username}} :</a></span> 
+			<span style="display:inline-block;">{{line.Message}}</span>
     	</div>
     </div>
 

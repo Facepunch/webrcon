@@ -88,14 +88,12 @@ function SecondsToDuration()
 
 		var out = "";
 		var hours = Math.floor( input / 3600 );
-		if ( input > 3600 ) out += hours + "h ";
+		if ( input > 3600 ) out += hours + "h";
 
 		var minutes = Math.floor( input / 60 ) % 60;
-		if ( input > 60 ) out += minutes + "m ";
+		if ( input > 60 ) out += minutes + "m";
 
 		var seconds = input % 60;
-
-		if ( input < 3600 )
 		out += seconds + "s";
 
 		return out;

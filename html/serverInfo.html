@@ -4,16 +4,13 @@
 	<div class="row">
 
 		<div class="col-sm-12">
-			<h2 class="center">
+			<h2>
 				{{info.Hostname}}
-				<div class="btn-group pull-right">
-					<button ng-click="refresh()" class="btn btn-default" type="button"><i class="glyphicon glyphicon-refresh"></i></button>
-				</div>
 			</h2>
 		</div>
 
 		<div class="col-sm-4" ng-repeat="(key, value) in info">
-			<p>{{key}}: <span class="badge">{{value}}</span></p>
+			<p><span class="text-muted">{{key}}:</span> <span>{{value}}</span></p>
 		</div>
 
 		<!--
