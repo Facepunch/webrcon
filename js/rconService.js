@@ -52,6 +52,12 @@ function RconService()
 		if ( identifier == null )
 			identifier = -1;
 
+		if ( s.Socket == null )
+			return;
+		
+		if ( !s.IsConnected )
+			return;
+
 		var packet =
 			{
 				Identifier: identifier,

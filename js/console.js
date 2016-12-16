@@ -114,7 +114,7 @@ function ConsoleController( $scope, rconService, $timeout )
 	}
 
 	//
-	// Calls console.tail - which returns the last 256 entries from the console.
+	// Calls console.tail - which returns the last 128 entries from the console.
 	// This is then added to the console
 	//
 	$scope.GetHistory = function ()

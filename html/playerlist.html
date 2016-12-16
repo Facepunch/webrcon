@@ -18,10 +18,8 @@
 							<th>Actions</th>
 
 							<th ng-click="Order( 'DisplayName' )" ng-class="SortClass( 'DisplayName' )">Username</th>
-							<th class="text-right" ng-click="Order( 'SteamID' )" ng-class="SortClass( 'SteamID' )">Steamid</th>
-							<th class="text-right" ng-click="Order( 'VoiationLevel' )" ng-class="SortClass( 'VoiationLevel' )">Voilation</th>
-							<th class="text-right" ng-click="Order( 'CurrentLevel' )" ng-class="SortClass( 'CurrentLevel' )">Level</th>
-							<th class="text-right" ng-click="Order( 'UnspentXp' )" ng-class="SortClass( 'UnspentXp' )">XP</th>
+							<th class="text-right" ng-click="Order( 'SteamID' )" ng-class="SortClass( 'SteamID' )">Steam ID</th>
+							<th class="text-right" ng-click="Order( 'VoiationLevel' )" ng-class="SortClass( 'VoiationLevel' )">Violation Level</th>
 							<th class="text-right" ng-click="Order( 'Address' )" ng-class="SortClass( 'Address' )">Address</th>
 							<th class="text-right" ng-click="Order( 'Ping' )" ng-class="SortClass( 'Ping' )">Ping</th>
 							<th class="text-right" ng-click="Order( 'ConnectedSeconds' )" ng-class="SortClass( 'ConnectedSeconds' )">Duration</th>
@@ -35,12 +33,6 @@
 							    	<span class="glyphicon glyphicon-cog"></span> <span class="caret"></span>
 							  	</button>
 							  	<ul class="dropdown-menu">
-							  		<li>
-								    	<a href="#/{{address}}/player/{{line.SteamID}}/xp">
-											<span class="glyphicon glyphicon-education"></span>
-											XP Info
-										</a>
-								    </li>
 								    <li>
 								    	<a href="http://www.steamcommunity.com/profiles/{{line.SteamID}}" target="_blank">
 											<span class="glyphicon glyphicon-info-sign"></span>
@@ -68,14 +60,6 @@
 
 						<td class="text-right" ng-class="{fade: line.VoiationLevel == 0 }">
 							{{line.VoiationLevel}}
-						</td>
-
-						<td class="text-right">
-							{{line.CurrentLevel}}
-						</td>
-
-						<td class="text-right">
-							<a href="#/{{address}}/player/{{line.SteamID}}/xp">{{line.UnspentXp}}</a>
 						</td>
 
 						<td class="text-right">
