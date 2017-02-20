@@ -20,6 +20,7 @@ function ChatController( $scope, rconService, $timeout )
 
 	$scope.OnMessage = function( msg )
 	{
+		msg.Message = stripHtml(msg.Message);
 		$scope.Output.push( msg );
 		
 		if($scope.isOnBottom()) {
@@ -76,4 +77,12 @@ function ChatController( $scope, rconService, $timeout )
 	}
 
 	rconService.InstallService( $scope, $scope.GetHistory )
+}
+
+function stripHtml(html)
+{
+	if (html == null) return "";
+	var tmp = document.createElement("div");
+	tmp.innerHTML = html;
+	return tmp.textContent || tmp.innerText || "";
 }
