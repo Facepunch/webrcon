@@ -76,6 +76,11 @@ a:hover
 	border-color: #1bc98e;
 }
 
+.table-responsive {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
 .btn-default, .btn-default:active, .form-control
 {
 	background: rgba( 255, 255, 255, 0.3 );
