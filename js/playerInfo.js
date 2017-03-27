@@ -17,6 +17,19 @@ function PlayerInfoController( $scope, rconService, $routeParams )
 					// set player data
 					$scope.info = players[i];
 
+					// remove xp remnants
+					if ($scope.info['CurrentLevel'] !== undefined)
+						delete $scope.info['CurrentLevel'];
+					if ($scope.info['UnspentXp'] !== undefined)
+						delete $scope.info['UnspentXp'];
+
+					// fix violation level
+					if ($scope.info['VoiationLevel'] !== undefined){
+						var violationLevel = $scope.info['VoiationLevel'];
+						delete $scope.info['VoiationLevel'];
+						$scope.info['ViolationLevel'] = violationLevel;
+					}
+
 					return;
 				}
 			}
