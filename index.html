@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" ng-app="RconApp">
   <head>
     <meta charset="utf-8">
@@ -6,74 +6,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Websocket Rcon</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.2/nv.d3.min.css" rel="stylesheet">
-  	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
-  	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap-theme.css" rel="stylesheet">
     <link href="rcon.css" rel="stylesheet">
   </head>
   <body ng-controller="RconController">
 
-	<nav class="navbar navbar-default" ng-controller="ServerInfoController" ng-show="info.Hostname != null">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">{{info.Hostname}}</a>
-			
-				<ul class="nav navbar-nav">
-					<li><div class="navbar-info" title="Uptime"><span class="glyphicon glyphicon-time"></span> {{info.Uptime|SecondsToDuration}}</div></li>
-					<li><div class="navbar-info" title="Map Name"><span class="glyphicon glyphicon-globe"></span> {{info.Map}}</div></li>
-					<li><div class="navbar-info" title="Current Players/Maximum Players"><span class="glyphicon glyphicon-user"></span> {{info.Players|number}}/{{info.MaxPlayers|number}}</div></li>
-					<li><div class="navbar-info" title="Framerate"><span class="glyphicon glyphicon-hourglass"></span> {{info.Framerate|number}}fps</div></li>
-					<li><div class="navbar-info" title="Entity Count"><span class="glyphicon glyphicon-oil"></span> {{info.EntityCount|number}}</div></li>
-				</ul>
-					
-			</div>
-				
-			</div>
-	</nav>
-  
-  	<div class="container">
+    <nav class="navbar navbar-default" ng-controller="ServerInfoController" ng-show="Connected">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">{{info.Hostname}}</a>
 
-  		<div ng-include="'html/connect.html'" ng-show="!Connected">
-  		</div>
+          <ul class="nav navbar-nav">
+            <li>
+              <div class="navbar-info" title="Uptime">
+                <span class="glyphicon glyphicon-time"></span>
+                {{info.Uptime|SecondsToDuration}}
+              </div>
+            </li>
+            <li>
+              <div class="navbar-info" title="Map Name">
+                <span class="glyphicon glyphicon-globe"></span>
+                {{info.Map}}
+              </div>
+            </li>
+            <li>
+              <div class="navbar-info" title="Current Players/Maximum Players">
+                <span class="glyphicon glyphicon-user"></span>
+                {{info.Players|number}}/{{info.MaxPlayers|number}}
+              </div>
+            </li>
+            <li>
+              <div class="navbar-info" title="Framerate">
+                <span class="glyphicon glyphicon-hourglass"></span>
+                {{info.Framerate|number}}fps
+              </div>
+            </li>
+            <li>
+              <div class="navbar-info" title="Entity Count">
+                <span class="glyphicon glyphicon-oil"></span>
+                {{info.EntityCount|number}}
+              </div>
+            </li>
+          </ul>
 
-  		<div ng-show="Connected" class="col-sm-2 sidebar">
+        </div>
 
-  			<ul class="nav nav-sidebar">
-  				<li ng-repeat="p in pages | filter: { Nav: '' } " ng-class="{'active' : $route.current.Title == p.Title }">
-  					<a href="#{{Nav( p.originalPath )}}">{{p.Title}}</a>
-  				</li>
-  			</ul>
+      </div>
+    </nav>
 
-  		</div>
+    <div class="container">
 
-  		<div class="col-sm-10" ng-show="Connected">
+      <div ng-include="'html/connect.html'" ng-show="!Connected"></div>
 
-			<h1 class="page-header">{{$route.current.Title}}</h1>
-  			<div class="row" ng-view></div>
-  		</div>
+      <div ng-show="Connected" class="col-sm-2 sidebar">
 
-  	</div>
-  
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  	
-  	<!-- AngularJS -->
-  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
-  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-  	
-  	<!-- Bootstrap -->
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
-  	
-  	<!-- For charts -->
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.2/nv.d3.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.5/angular-nvd3.min.js"></script>
-  	
-  	<!-- Data manipulation -->
+        <ul class="nav nav-sidebar">
+          <li ng-repeat="page in pages" ng-class="{'active' : $route.current.Title == page.Title }">
+            <a href="#{{Nav( page.originalPath )}}">{{page.Title}}</a>
+          </li>
+          <li>
+            <a href="#" ng-click="Disconnect()">Disconnect</a>
+          </li>
+        </ul>
+
+      </div>
+
+      <div class="col-sm-10" ng-show="Connected">
+
+        <h1 class="page-header">{{$route.current.Title}}</h1>
+        <div class="row" ng-view></div>
+
+      </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
+
+    <!-- For charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.2/nv.d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.5/angular-nvd3.min.js"></script>
+
+    <!-- Data manipulation -->
     <script src="js/linq.min.js"></script>
-    	
-  	<!-- Our stuff -->
+
+    <!-- Our stuff -->
     <script src="js/rconService.js"></script>
     <script src="js/app.js"></script>
     <script src="js/connection.js"></script>
@@ -82,6 +110,6 @@
     <script src="js/playerlist.js"></script>
     <script src="js/playerInfo.js"></script>
     <script src="js/chat.js"></script>
-	
+
   </body>
 </html>
