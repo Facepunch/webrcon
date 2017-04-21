@@ -1,4 +1,5 @@
 function RconService() {
+
   var ConnectionStatus = {
     'CONNECTING': 0,
     'OPEN': 1,

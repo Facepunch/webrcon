@@ -118,6 +118,7 @@ a:hover
     color: #fff;
 }
 
+.navbar-default .navbar-nav > li > .navbar-text,
 .navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus
 {
     color: #fff;

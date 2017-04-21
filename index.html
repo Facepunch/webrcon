@@ -15,43 +15,57 @@
     <nav class="navbar navbar-default" ng-controller="ServerInfoController" ng-show="Connected">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">{{info.Hostname}}</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-header" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
 
+          <a class="navbar-brand" href="#">{{info.Hostname}}</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-header">
           <ul class="nav navbar-nav">
             <li>
-              <div class="navbar-info" title="Uptime">
+              <p class="navbar-text" title="Uptime">
                 <span class="glyphicon glyphicon-time"></span>
                 {{info.Uptime|SecondsToDuration}}
-              </div>
+              </p>
             </li>
             <li>
-              <div class="navbar-info" title="Map Name">
+              <p class="navbar-text" title="Map Name">
                 <span class="glyphicon glyphicon-globe"></span>
                 {{info.Map}}
-              </div>
+              </p>
             </li>
             <li>
-              <div class="navbar-info" title="Current Players/Maximum Players">
+              <p class="navbar-text" title="Current Players/Maximum Players">
                 <span class="glyphicon glyphicon-user"></span>
                 {{info.Players|number}}/{{info.MaxPlayers|number}}
-              </div>
+              </p>
             </li>
             <li>
-              <div class="navbar-info" title="Framerate">
+              <p class="navbar-text" title="Framerate">
                 <span class="glyphicon glyphicon-hourglass"></span>
                 {{info.Framerate|number}}fps
-              </div>
+              </p>
             </li>
             <li>
-              <div class="navbar-info" title="Entity Count">
+              <p class="navbar-text" title="Entity Count">
                 <span class="glyphicon glyphicon-oil"></span>
                 {{info.EntityCount|number}}
-              </div>
+              </p>
+            </li>
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <button class="btn btn-danger navbar-btn" type="button" ng-click="Disconnect()">Disconnect</button>
             </li>
           </ul>
 
         </div>
-
       </div>
     </nav>
 
@@ -64,9 +78,6 @@
         <ul class="nav nav-sidebar">
           <li ng-repeat="page in pages" ng-class="{'active' : $route.current.Title == page.Title }">
             <a href="#{{Nav( page.originalPath )}}">{{page.Title}}</a>
-          </li>
-          <li>
-            <a href="#" ng-click="Disconnect()">Disconnect</a>
           </li>
         </ul>
 
