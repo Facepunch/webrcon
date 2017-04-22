@@ -1,123 +1,131 @@
+function RconService() {
 
-function RconService()
-{
-	var s = {
-		Callbacks: {}
-	};
+  var ConnectionStatus = {
+    'CONNECTING': 0,
+    'OPEN': 1,
+    'CLOSING': 2,
+    'CLOSED': 3
+  };
 
-	s.Connect = function ( addr, pass )
-	{
-		s.Socket = new WebSocket( "ws://" + addr + "/" + pass );
-		s.Address = addr;
+  var Service = {
+    Socket: null,
+    Address: null,
+    Callbacks: {}
+  };
 
-		s.Socket.onmessage = function ( e )
-		{
-			var data = angular.fromJson( e.data );
+  var LastIndex = 1001;
 
-			//
-			// This is a targetted message, it has an identifier
-			// So feed it back to the right callback.
-			//
-			if ( data.Identifier > 1000 )
-			{
-				var cb = s.Callbacks[data.Identifier];
-				if ( cb != null )
-				{
-					cb.scope.$apply( function ()
-					{
-						cb.callback( data );
-					} );
-				}
-				s.Callbacks[data.Identifier] = null;
+  Service.Connect = function(addr, pass) {
+    this.Socket = new WebSocket("ws://" + addr + "/" + pass);
+    this.Address = addr;
 
-				return;
-			}
+    this.Socket.onmessage = function(e) {
+      var data = angular.fromJson(e.data);
 
-			//
-			// Generic console message, let OnMessage catch it
-			//
-			if ( s.OnMessage != null )
-			{
-				s.OnMessage( data );
-			}
-		};
+      //
+      // This is a targetted message, it has an identifier
+      // So feed it back to the right callback.
+      //
+      if (data.Identifier > 1000) {
+        var cb = Service.Callbacks[data.Identifier];
+        if (cb != null) {
+          cb.scope.$apply(function() {
+            cb.callback(data);
+          });
+        }
+        Service.Callbacks[data.Identifier] = null;
 
-		s.Socket.onopen = s.OnOpen;
-		s.Socket.onclose = s.OnClose;
-		s.Socket.onerror = s.OnError;
-	}
+        return;
+      }
 
-	s.Command = function ( msg, identifier )
-	{
-		if ( identifier == null )
-			identifier = -1;
+      //
+      // Generic console message, let OnMessage catch it
+      //
+      if (Service.OnMessage != null) {
+        Service.OnMessage(data);
+      }
+    };
 
-		if ( s.Socket == null )
-			return;
-		
-		if ( !s.IsConnected )
-			return;
+    this.Socket.onopen = this.OnOpen;
+    this.Socket.onclose = this.OnClose;
+    this.Socket.onerror = this.OnError;
+  }
 
-		var packet =
-			{
-				Identifier: identifier,
-				Message: msg,
-				Name: "WebRcon"
-			}
+  Service.Disconnect = function() {
+    if (this.Socket) {
+      this.Socket.close();
+      this.Socket = null;
+    }
 
-		s.Socket.send( JSON.stringify( packet ) );
-	};
+    this.Callbacks = {};
+  }
 
-	var LastIndex = 1001;
+  Service.Command = function(msg, identifier) {
+    if (this.Socket === null)
+      return;
 
-	//
-	// Make a request, call this function when it returns
-	//
-	s.Request = function ( msg, scope, callback )
-	{
-		LastIndex++;
-		s.Callbacks[LastIndex] = { scope: scope, callback: callback };
-		s.Command( msg, LastIndex );
-	}
+    if (!this.IsConnected())
+      return;
 
-	//
-	// Returns true if websocket is connected
-	//
-	s.IsConnected = function ()
-	{
-		if ( s.Socket == null ) return false;
-		return s.Socket.readyState == 1;
-	}
+    if (identifier === null)
+      identifier = -1;
 
-	//
-	// Helper for installing connectivity logic
-	//
-	// Basically if not connected, call this function when we are
-	// And if we are - then call it right now.
-	//
-	s.InstallService = function( scope, func )
-	{
-		scope.$on( "OnConnected", function ()
-		{
-			func();
-		});
+    var packet = {
+      Identifier: identifier,
+      Message: msg,
+      Name: "WebRcon"
+    };
 
-		if ( s.IsConnected() )
-		{
-			func();
-		}
-	}
+    this.Socket.send(JSON.stringify(packet));
+  };
 
-	s.getPlayers = function(scope, success) {
-		this.Request( "playerlist", scope, function ( response )
-		{
-			var players = JSON.parse( response.Message );
+  //
+  // Make a request, call this function when it returns
+  //
+  Service.Request = function(msg, scope, callback) {
+    LastIndex++;
+    this.Callbacks[LastIndex] = {
+      scope: scope,
+      callback: callback
+    };
+    Service.Command(msg, LastIndex);
+  }
 
-			if(typeof success === 'function') {
-				success.call(scope, players);
-			}
-		});
-	}
+  //
+  // Returns true if websocket is connected
+  //
+  Service.IsConnected = function() {
+    if (this.Socket == null)
+      return false;
 
-	return s;
+    return this.Socket.readyState === ConnectionStatus.OPEN;
+  }
+
+  //
+  // Helper for installing connectivity logic
+  //
+  // Basically if not connected, call this function when we are
+  // And if we are - then call it right now.
+  //
+  Service.InstallService = function(scope, func) {
+    scope.$on("OnConnected", function() {
+      func();
+    });
+
+    if (this.IsConnected()) {
+      func();
+    }
+  }
+
+  Service.getPlayers = function(scope, success) {
+    this.Request("playerlist", scope, function(response) {
+      var players = JSON.parse(response.Message);
+
+      if (typeof success === 'function') {
+        success.call(scope, players);
+      }
+    });
+  }
+
+  return Service;
 }
