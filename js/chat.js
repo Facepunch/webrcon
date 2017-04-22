@@ -15,6 +15,7 @@ function ChatController( $scope, rconService, $timeout )
 	{
 		if ( msg.Type !== "Chat" ) return;
 
+		msg.Message = msg.Message.replace(/(\"UserId\"\:)\s(\d+)(,)/g, "$1\"$2\"$3");
 		$scope.OnMessage( JSON.parse( msg.Message ) );
 	});
 
@@ -66,6 +67,7 @@ function ChatController( $scope, rconService, $timeout )
 	{
 		rconService.Request( "chat.tail 512", $scope, function ( msg )
 		{
+			msg.Message = msg.Message.replace(/(\"UserId\"\:)\s(\d+)(,)/g, "$1\"$2\"$3");
 			var messages = JSON.parse( msg.Message );
 
 			messages.forEach( function ( message ) {
