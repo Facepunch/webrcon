@@ -12,62 +12,7 @@
   </head>
   <body ng-controller="RconController">
 
-    <nav class="navbar navbar-default" ng-controller="ServerInfoController" ng-show="Connected">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-header" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-          <a class="navbar-brand" href="#">{{info.Hostname}}</a>
-        </div>
-
-        <div class="collapse navbar-collapse" id="navbar-collapse-header">
-          <ul class="nav navbar-nav">
-            <li>
-              <p class="navbar-text" title="Uptime">
-                <span class="glyphicon glyphicon-time"></span>
-                {{info.Uptime|SecondsToDuration}}
-              </p>
-            </li>
-            <li>
-              <p class="navbar-text" title="Map Name">
-                <span class="glyphicon glyphicon-globe"></span>
-                {{info.Map}}
-              </p>
-            </li>
-            <li>
-              <p class="navbar-text" title="Current Players/Maximum Players">
-                <span class="glyphicon glyphicon-user"></span>
-                {{info.Players|number}}/{{info.MaxPlayers|number}}
-              </p>
-            </li>
-            <li>
-              <p class="navbar-text" title="Framerate">
-                <span class="glyphicon glyphicon-hourglass"></span>
-                {{info.Framerate|number}}fps
-              </p>
-            </li>
-            <li>
-              <p class="navbar-text" title="Entity Count">
-                <span class="glyphicon glyphicon-oil"></span>
-                {{info.EntityCount|number}}
-              </p>
-            </li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <button class="btn btn-danger navbar-btn" type="button" ng-click="Disconnect()">Disconnect</button>
-            </li>
-          </ul>
-
-        </div>
-      </div>
-    </nav>
+    <div ng-include="'html/header.html'" ng-show="Connected"></div>
 
     <div class="container">
 
