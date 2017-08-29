@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="RconApp">
+<html lang="en" ng-app="app">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,43 +8,22 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.2/nv.d3.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap-theme.css" rel="stylesheet">
-    <link href="rcon.css" rel="stylesheet">
+    <link href="assets/rcon.css" rel="stylesheet">
   </head>
-  <body ng-controller="RconController">
+  <body ng-controller="appController">
+    
+    <div id="pageloader"></div>
 
-    <div ng-include="'html/header.html'" ng-show="Connected"></div>
-
-    <div class="container">
-
-      <div ng-include="'html/connect.html'" ng-show="!Connected"></div>
-
-      <div ng-show="Connected" class="col-sm-2 sidebar">
-
-        <ul class="nav nav-sidebar">
-          <li ng-repeat="page in pages" ng-class="{'active' : $route.current.Title == page.Title }">
-            <a href="#{{Nav( page.originalPath )}}">{{page.Title}}</a>
-          </li>
-        </ul>
-
-      </div>
-
-      <div class="col-sm-10" ng-show="Connected">
-
-        <h1 class="page-header">{{$route.current.Title}}</h1>
-        <div class="row" ng-view></div>
-
-      </div>
-
-    </div>
+    <div ng-include="'app/app.html'"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
     <!-- AngularJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-messages.min.js"></script>
 
     <!-- Bootstrap -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
@@ -54,18 +33,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.9/angular-nvd3.min.js"></script>
 
-    <!-- Data manipulation -->
-    <script src="js/linq.min.js"></script>
-
     <!-- Our stuff -->
-    <script src="js/rconService.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/connection.js"></script>
-    <script src="js/serverInfo.js"></script>
-    <script src="js/console.js"></script>
-    <script src="js/playerlist.js"></script>
-    <script src="js/playerInfo.js"></script>
-    <script src="js/chat.js"></script>
+    <script src="app/core/connectionService.js"></script>
+    <script src="app/main.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/connection/connection.js"></script>
+    <script src="app/server/info.js"></script>
+    <script src="app/console/console.js"></script>
+    <script src="app/player/list.js"></script>
+    <script src="app/player/info.js"></script>
+    <script src="app/chat/chat.js"></script>
 
   </body>
 </html>

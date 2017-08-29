@@ -1,9 +1,9 @@
-app.controller('ServerInfoController', ServerInfoController);
+app.controller('serverInfoController', ServerInfoController);
 
 var DATA_LIMIT = 100;
 var recordedData = [];
 
-function ServerInfoController($scope, rconService, $routeParams, $interval) {
+function ServerInfoController($scope, connectionService, $routeParams, $interval) {
   $scope.useCharts = false;
 
   // TODO: move serverinfo to service
@@ -21,24 +21,24 @@ function ServerInfoController($scope, rconService, $routeParams, $interval) {
           left: 75
         },
         donut: true,
-        x: function(d) {
+        x: function (d) {
           return d.key;
         },
-        y: function(d) {
+        y: function (d) {
           return d.y;
         },
         yAxis: {
           axisLabel: 'Slots',
-          tickFormat: function(d) {
+          tickFormat: function (d) {
             return d3.format('.d')(d);
           }
         },
         showLabels: true,
         pie: {
-          startAngle: function(d) {
+          startAngle: function (d) {
             return d.startAngle / 2 - Math.PI / 2
           },
-          endAngle: function(d) {
+          endAngle: function (d) {
             return d.endAngle / 2 - Math.PI / 2
           }
         },
@@ -72,40 +72,38 @@ function ServerInfoController($scope, rconService, $routeParams, $interval) {
         useInteractiveGuideline: true,
         yAxis1: {
           axisLabel: 'Framerate',
-          tickFormat: function(d) {
+          tickFormat: function (d) {
             return d3.format(',d')(d);
           }
         },
         yAxis2: {
           axisLabel: 'Entities',
-          tickFormat: function(d) {
+          tickFormat: function (d) {
             return d3.format(',d')(d);
           },
           // axisLabelDistance: 12
         },
         xAxis: {
           axisLabel: "Time",
-          tickFormat: function(d) {
+          tickFormat: function (d) {
             return d3.time.format('%H:%M:%S')(new Date(d))
           }
         }
       }
     },
-    data: [
-      {
-        key: 'Framerate',
-        type: "line",
-        duration: 0,
-        yAxis: 1,
-        values: []
-      }, {
-        key: 'Entities',
-        type: 'line',
-        duration: 0,
-        yAxis: 2,
-        values: []
-      }
-    ]
+    data: [{
+      key: 'Framerate',
+      type: "line",
+      duration: 0,
+      yAxis: 1,
+      values: []
+    }, {
+      key: 'Entities',
+      type: 'line',
+      duration: 0,
+      yAxis: 2,
+      values: []
+    }]
   };
 
   $scope.netChart = {
@@ -124,7 +122,7 @@ function ServerInfoController($scope, rconService, $routeParams, $interval) {
         useInteractiveGuideline: true,
         yAxis: {
           axisLabel: 'Network',
-          tickFormat: function(bytes) {
+          tickFormat: function (bytes) {
             var fmt = d3.format('.0f');
             if (bytes < 1024) {
               return fmt(bytes) + 'B';
@@ -139,34 +137,32 @@ function ServerInfoController($scope, rconService, $routeParams, $interval) {
         },
         xAxis: {
           axisLabel: "Time",
-          tickFormat: function(d) {
+          tickFormat: function (d) {
             return d3.time.format('%H:%M:%S')(new Date(d))
           }
         }
       }
     },
-    data: [
-      {
-        key: 'IN',
-        values: []
-      }, {
-        key: 'OUT',
-        values: []
-      }
-    ]
+    data: [{
+      key: 'IN',
+      values: []
+    }, {
+      key: 'OUT',
+      values: []
+    }]
   };
 
-  rconService.InstallService($scope, _refresh);
+  connectionService.installService($scope, _refresh);
 
   // TODO: move updateinterval to service
   var timer = $interval(_refresh, 1000);
-  $scope.$on("$destroy", function() {
+  $scope.$on("$destroy", function () {
     $interval.cancel(timer);
     $scope.serverinfo = {};
   });
 
   function _refresh() {
-    rconService.Request('serverinfo', $scope, function(msg) {
+    connectionService.request('serverinfo', $scope, function (msg) {
       _updateData(JSON.parse(msg.Message));
     });
   }
@@ -182,23 +178,24 @@ function ServerInfoController($scope, rconService, $routeParams, $interval) {
 
   function _collectChartData(data) {
     // player chart
-    $scope.playersChart.data = [
-      {
-        key: 'Queued',
-        y: data.Queued
-      }, {
-        key: 'Joining',
-        y: data.Joining
-      }, {
-        key: 'Players',
-        y: data.Players
-      }, {
-        key: 'Free',
-        y: (data.MaxPlayers - (data.Joining + data.Players))
-      }
-    ];
+    $scope.playersChart.data = [{
+      key: 'Queued',
+      y: data.Queued
+    }, {
+      key: 'Joining',
+      y: data.Joining
+    }, {
+      key: 'Players',
+      y: data.Players
+    }, {
+      key: 'Free',
+      y: (data.MaxPlayers - (data.Joining + data.Players))
+    }];
 
-    recordedData.push({ts: Date.now(), data: data});
+    recordedData.push({
+      ts: Date.now(),
+      data: data
+    });
     if (recordedData.length > DATA_LIMIT) {
       recordedData = recordedData.slice(Math.max(recordedData.length - DATA_LIMIT, 1));
     }
@@ -214,11 +211,23 @@ function ServerInfoController($scope, rconService, $routeParams, $interval) {
 
     for (var i = 0; i < recordedData.length; i++) {
       var record = recordedData[i];
-      fpsChartValues.push({x: record.ts, y: record.data.Framerate});
-      entChartValues.push({x: record.ts, y: record.data.EntityCount});
+      fpsChartValues.push({
+        x: record.ts,
+        y: record.data.Framerate
+      });
+      entChartValues.push({
+        x: record.ts,
+        y: record.data.EntityCount
+      });
 
-      netInChartValues.push({x: record.ts, y: record.data.NetworkIn});
-      netOutChartValues.push({x: record.ts, y: record.data.NetworkOut});
+      netInChartValues.push({
+        x: record.ts,
+        y: record.data.NetworkIn
+      });
+      netOutChartValues.push({
+        x: record.ts,
+        y: record.data.NetworkOut
+      });
     }
 
     $scope.performanceChart.data[0].values = fpsChartValues;

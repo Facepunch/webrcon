@@ -1,0 +1,54 @@
+<div ng-controller="connectionController" class="row">
+
+	<div class="col-md-offset-4 col-md-6 panel jumbotron" style="margin-top: 128px">
+
+		<h2>Connect</h2>
+
+		<div class="alert alert-danger" ng-show="lastErrorMessage != null">
+			{{lastErrorMessage}}
+		</div>
+
+		<p>Enter the address (including rcon port) and the rcon password below to connect.</p>
+
+		<form ng-submit="connect()">
+
+				<div class="form-group">
+					<label for="conncetion-adress">Address</label>
+					<input required minlength=5 ng-model="address" name="address" class="form-control" placeholder="xxx.xxx.xxx.xxx:28016" id="conncetion-adress">
+				</div>
+
+				<div class="form-group">
+					<label for="conncetion-password">Password</label>
+					<input required minlength=2 type="password" ng-model="password" name="password" class="form-control" id="conncetion-password">
+				</div>
+
+				<div class="checkbox pull-right">
+					<label>
+						<input type="checkbox" ng-model="saveConnection"> Save Connection
+					</label>
+				</div>
+
+				<button type="submit" class="btn btn-primary btn-block" ng-click="connect()">Connect</button>
+
+		</form>
+	</div>
+
+	<div class="col-md-offset-4 col-md-6 panel jumbotron">
+
+		<div ng-show="previousConnects.length > 0">
+			<h2>Saved Connections</h2>
+			<ul ng-repeat="connection in previousConnects | orderBy:array:true | limitTo:connectionsLimit">
+				<li>
+					<a ng-click="connectTo(connection)" href="#/{{connection.address}}/info">{{connection.address}}</a> - {{connection.date | date:'short'}}
+				</li>
+			</ul>
+			<div ng-show="previousConnects.length > connectionsLimit || connectionsLimit === undefined">
+				<button type="submit" class="btn btn-primary btn-block" ng-click="toggleConnectionsLimit()">
+					Show {{(connectionsLimit === undefined) ? 'less' : 'more'}}
+				</button>
+			</div>
+		</div>
+
+	</div>
+
+</div>

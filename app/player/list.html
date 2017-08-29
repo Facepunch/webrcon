@@ -1,11 +1,11 @@
-<div ng-controller="PlayerListController" id="PlayerListController">
+<div ng-controller="playerListController" id="PlayerListController">
 
 	<div class="row">
 		<div class="col-xs-6">
-			<input ng-model="FilterText" class="form-control" placeholder="Filter..">
+			<input ng-model="filterText" class="form-control" placeholder="Filter..">
 		</div>
 		<div class="col-xs-6">
-			<button ng-click="Refresh()" class="btn btn-default pull-right" type="button"><span class="glyphicon glyphicon-refresh"></span></button>
+			<button ng-click="refresh()" class="btn btn-default pull-right" type="button"><span class="glyphicon glyphicon-refresh"></span></button>
 		</div>
 	</div>
 
@@ -17,15 +17,15 @@
 						<tr>
 							<th>Actions</th>
 
-							<th ng-click="Order( 'DisplayName' )" ng-class="SortClass( 'DisplayName' )">Username</th>
-							<th class="text-right" ng-click="Order( 'SteamID' )" ng-class="SortClass( 'SteamID' )">Steam ID</th>
-							<th class="text-right" ng-click="Order( 'VoiationLevel' )" ng-class="SortClass( 'VoiationLevel' )">Violation Level</th>
-							<th class="text-right" ng-click="Order( 'Address' )" ng-class="SortClass( 'Address' )">Address</th>
-							<th class="text-right" ng-click="Order( 'Ping' )" ng-class="SortClass( 'Ping' )">Ping</th>
-							<th class="text-right" ng-click="Order( 'ConnectedSeconds' )" ng-class="SortClass( 'ConnectedSeconds' )">Duration</th>
+							<th ng-click="order( 'DisplayName' )" ng-class="sortClass( 'DisplayName' )">Username</th>
+							<th class="text-right" ng-click="order( 'SteamID' )" ng-class="sortClass( 'SteamID' )">Steam ID</th>
+							<th class="text-right" ng-click="order( 'VoiationLevel' )" ng-class="sortClass( 'VoiationLevel' )">Violation Level</th>
+							<th class="text-right" ng-click="order( 'Address' )" ng-class="sortClass( 'Address' )">Address</th>
+							<th class="text-right" ng-click="order( 'Ping' )" ng-class="sortClass( 'Ping' )">Ping</th>
+							<th class="text-right" ng-click="order( 'ConnectedSeconds' )" ng-class="sortClass( 'ConnectedSeconds' )">Duration</th>
 						</tr>
 					</thead>
-					<tr ng-repeat="line in Players | orderBy: OrderBy | filter:FilterText" href="#/{{address}}/player/{{line.SteamID}}/">
+					<tr ng-repeat="line in players | orderBy: orderBy | filter: filterText" href="#/{{address}}/player/{{line.SteamID}}/">
 
 						<td>
 							<div class="btn-group">
@@ -41,7 +41,7 @@
 								    </li>
 								    <li class="divider"></li>
 								    <li>
-								    	<a href ng-click="KickPlayer(line.SteamID)">
+								    	<a href ng-click="kickPlayer(line.SteamID)">
 								    		<span class="glyphicon glyphicon-trash"></span>
 								    		Kick
 								    	</a>

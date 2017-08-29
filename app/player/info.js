@@ -1,18 +1,15 @@
+app.controller('playerInfoController', PlayerInfoController);
 
-app.controller( 'PlayerInfoController', PlayerInfoController );
-
-function PlayerInfoController( $scope, rconService, $routeParams )
-{
+function PlayerInfoController($scope, connectionService, $routeParams) {
 	$scope.userid = $routeParams.userid;
 
 	$scope.info = null;
 
-	$scope.refresh = function ()
-	{
-		rconService.getPlayers($scope, function(players) {
+	$scope.refresh = function () {
+		connectionService.getPlayers((players) => {
 
-			for(var i in players) {
-				if(players[i].SteamID === $scope.userid){
+			for (var i in players) {
+				if (players[i].SteamID === $scope.userid) {
 
 					// set player data
 					$scope.info = players[i];
@@ -24,7 +21,7 @@ function PlayerInfoController( $scope, rconService, $routeParams )
 						delete $scope.info['UnspentXp'];
 
 					// fix violation level
-					if ($scope.info['VoiationLevel'] !== undefined){
+					if ($scope.info['VoiationLevel'] !== undefined) {
 						var violationLevel = $scope.info['VoiationLevel'];
 						delete $scope.info['VoiationLevel'];
 						$scope.info['ViolationLevel'] = violationLevel;
@@ -37,13 +34,12 @@ function PlayerInfoController( $scope, rconService, $routeParams )
 			// player not found
 			// reset data to null
 			$scope.info = null;
-		});
+		}, $scope);
 	}
 
-	$scope.getUsername = function ()
-	{
+	$scope.getUsername = function () {
 		// try to find players name in info
-		if($scope.info && $scope.info.DisplayName) {
+		if ($scope.info && $scope.info.DisplayName) {
 			return $scope.info.DisplayName;
 		}
 
@@ -51,5 +47,5 @@ function PlayerInfoController( $scope, rconService, $routeParams )
 		return $scope.userid;
 	}
 
-	rconService.InstallService( $scope, $scope.refresh )
+	connectionService.installService($scope, $scope.refresh)
 }
