@@ -1,16 +1,16 @@
 <div ng-controller="consoleController" id="ConsoleController">
 
-	<div style="height: 600px" class="Output scrollable">
-		<div ng-repeat="line in output" ng-class="line.Class">{{line.Message}}</div>
-	</div>
+  <div style="height: 600px" class="Output scrollable">
+    <div ng-repeat="line in output" ng-class="line.Class">{{line.Message}}</div>
+  </div>
 
-	<form ng-submit="submitCommand()">
-		<div class="input-group">
-			<input type="text" class="form-control" ng-model="command" ng-keyup="keyUp($event)" />
-			<span class="input-group-btn">
+  <form ng-submit="submitCommand()">
+    <div class="input-group">
+      <input type="text" class="form-control" ng-model="command" ng-keyup="keyUp($event)" />
+      <span class="input-group-btn">
 				<button class="btn btn-default" type="submit">Submit</button>
 			</span>
-		</div>
-	</form>
+    </div>
+  </form>
 
 </div>

@@ -2,23 +2,23 @@
 
 <div class="container">
 
-    <div ng-include="'app/connection/connect.html'" ng-show="!connected"></div>
+  <div ng-include="'app/connection/connect.html'" ng-show="!connected"></div>
 
-    <div class="col-sm-2 sidebar" ng-show="connected">
+  <div class="col-sm-2 sidebar" ng-show="connected">
 
     <ul class="nav nav-sidebar">
-        <li ng-repeat="page in pages" ng-class="{'active' : $route.current.title == page.title }">
+      <li ng-repeat="page in pages" ng-class="{'active' : $route.current.title == page.title }">
         <a href="#{{nav( page.originalPath )}}">{{page.title}}</a>
-        </li>
+      </li>
     </ul>
 
-    </div>
+  </div>
 
-    <div class="col-sm-10" ng-show="connected">
+  <div class="col-sm-10" ng-show="connected">
 
     <h1 class="page-header">{{$route.current.title}}</h1>
     <div class="row" ng-view></div>
 
-    </div>
+  </div>
 
 </div>

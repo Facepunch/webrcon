@@ -27,10 +27,10 @@ function ConnectionService() {
       // So feed it back to the right callback.
       //
       if (data.Identifier > 1000) {
-        var cb = service.callbacks[data.Identifier];
-        if (cb != null) {
-          cb.scope.$apply(function () {
-            cb.callback(data);
+        var callback = service.callbacks[data.Identifier];
+        if (callback) {
+          callback.scope.$apply(function () {
+            callback.fn(data);
           });
         }
         service.callbacks[data.Identifier] = null;
@@ -61,9 +61,6 @@ function ConnectionService() {
   }
 
   service.command = function (msg, identifier) {
-    if (this.socket === null)
-      return;
-
     if (!this.isConnected())
       return;
 
@@ -86,7 +83,7 @@ function ConnectionService() {
     lastIndex++;
     this.callbacks[lastIndex] = {
       scope: scope,
-      callback: callback
+      fn: callback
     };
     service.command(msg, lastIndex);
   }
@@ -95,7 +92,7 @@ function ConnectionService() {
   // Returns true if websocket is connected
   //
   service.isConnected = function () {
-    if (this.socket == null)
+    if (!this.socket)
       return false;
 
     return this.socket.readyState === ConnectionStatus.OPEN;

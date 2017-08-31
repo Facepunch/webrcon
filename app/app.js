@@ -9,46 +9,46 @@ function AppController($scope, $rootScope, connectionService, $timeout, $route, 
     }
   });
 
-  $scope.openLeftMenu = function() {
+  $scope.openLeftMenu = function () {
     $mdSidenav('left').toggle();
   };
 
-  $scope.isConnected = function() {
+  $scope.isConnected = function () {
     return connectionService.isConnected();
   }
 
-  $rootScope.nav = function(url) {
+  $rootScope.nav = function (url) {
     return url.replace(':address', connectionService.address);
   }
 
-  $rootScope.$on('$stateChangeStart', function(next, current) {
+  $rootScope.$on('$stateChangeStart', function (next, current) {
     console.log(next);
   });
 
-  connectionService.onOpen = function() {
+  connectionService.onOpen = function () {
     $scope.connected = true;
     $scope.$broadcast('onConnected');
     $scope.$digest();
     $scope.address = connectionService.address;
   }
 
-  connectionService.onClose = function(ev) {
+  connectionService.onClose = function (ev) {
     $scope.$broadcast('onDisconnected', ev);
     $scope.$digest();
   }
 
-  connectionService.onError = function(ev) {
+  connectionService.onError = function (ev) {
     $scope.$broadcast('onConnectionError', ev);
     $scope.$digest();
   }
 
-  connectionService.onMessage = function(data) {
-    $scope.$apply(function() {
+  connectionService.onMessage = function (data) {
+    $scope.$apply(function () {
       $scope.$broadcast('onMessage', data);
     });
   }
 
-  $scope.disconnect = function() {
+  $scope.disconnect = function () {
     if (confirm('Do you really want to disconnect?')) {
       connectionService.disconnect();
       $scope.connected = false;
