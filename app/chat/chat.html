@@ -1,0 +1,22 @@
+<div ng-controller="chatController" id="ChatController">
+
+  <div style="height: 600px" class="Output scrollable">
+    <div ng-repeat="line in output" ng-class="line.Class">
+      <span class="chattime">{{(line.Time * 1000) | date:'shortTime'}}</span>
+      <span class="chatname" data-ng-if="line.UserId > 0">
+				<a href="#/{{address}}/player/{{line.UserId}}/">{{line.Username}}:</a>
+			</span>
+      <span style="display:inline-block;">{{line.Message}}</span>
+    </div>
+  </div>
+
+  <form ng-submit="submitCommand()" class="md-inline-form">
+    <div class="input-group">
+      <input class="form-control" type="text" placeholder="Message" ng-model="command">
+      <span class="input-group-btn">
+				<button class="btn btn-default" type="submit">Submit</button>
+			</span>
+    </div>
+  </form>
+
+</div>

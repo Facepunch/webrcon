@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" ng-controller="ServerInfoController" ng-show="serverinfo">
+<nav class="navbar navbar-default" ng-controller="serverInfoController" ng-show="serverinfo">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-header" aria-expanded="false">
@@ -13,27 +13,22 @@
 
     <div class="collapse navbar-collapse" id="navbar-collapse-header">
       <p class="navbar-text" title="Uptime">
-        <span class="glyphicon glyphicon-time"></span>
-        {{serverinfo.Uptime|SecondsToDuration}}
+        <span class="glyphicon glyphicon-time"></span> {{serverinfo.Uptime|SecondsToDuration}}
       </p>
       <p class="navbar-text" title="Map Name">
-        <span class="glyphicon glyphicon-globe"></span>
-        {{serverinfo.Map}}
+        <span class="glyphicon glyphicon-globe"></span> {{serverinfo.Map}}
       </p>
       <p class="navbar-text" title="Current Players/Maximum Players">
-        <span class="glyphicon glyphicon-user"></span>
-        {{serverinfo.Players|number}}/{{serverinfo.MaxPlayers|number}}
+        <span class="glyphicon glyphicon-user"></span> {{serverinfo.Players|number}}/{{serverinfo.MaxPlayers|number}}
       </p>
       <p class="navbar-text" title="Framerate">
-        <span class="glyphicon glyphicon-hourglass"></span>
-        {{serverinfo.Framerate|number}}fps
+        <span class="glyphicon glyphicon-hourglass"></span> {{serverinfo.Framerate|number}}fps
       </p>
       <p class="navbar-text" title="Entity Count">
-        <span class="glyphicon glyphicon-oil"></span>
-        {{serverinfo.EntityCount|number}}
+        <span class="glyphicon glyphicon-oil"></span> {{serverinfo.EntityCount|number}}
       </p>
 
-      <button class="btn btn-danger navbar-btn navbar-right" type="button" ng-click="Disconnect()">Disconnect</button>
+      <button class="btn btn-danger navbar-btn navbar-right" type="button" ng-click="disconnect()">Disconnect</button>
 
     </div>
   </div>
