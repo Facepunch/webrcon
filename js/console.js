@@ -134,6 +134,8 @@ function ConsoleController( $scope, rconService, $timeout )
 	$scope.addOutput = function (msg)
 	{
 		msg.Class = msg.Type;
+		msg.Message = stripHtml(msg.Message);
+
 		$scope.Output.push( msg );
 
 		if($scope.isOnBottom()) {
